@@ -1,0 +1,84 @@
+// import 'package:flutter/material.dart';
+
+import 'package:fluent_ui/fluent_ui.dart';
+
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldPage(
+      content: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(5, 30, 5, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  HyperlinkButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      foregroundColor: WidgetStateProperty.all(Colors.white),
+                    ),
+                    child: const Text("Sign in"),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(25),
+              child: Image.asset('assets/images/welcome1.png'),
+            ),
+            Card(
+              padding: EdgeInsets.fromLTRB(40, 30, 40, 20),
+              backgroundColor: Color(0xFF191919),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                // spacing: 35,
+                children: [
+                  // SizedBox(height: 10),
+                  const Text(
+                    "Always take control of your finances",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+                  ),
+                  SizedBox(height: 20),
+                  const Text(
+                    "Finances must be arranged to set a better lifestyle in future",
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 15),
+                  FilledButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      padding: WidgetStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                      ),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "Get Started",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  // SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
