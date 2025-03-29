@@ -28,9 +28,21 @@ class StartScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(25),
-              child: Image.asset('assets/images/welcome1.png'),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF252525), Color(0xFF404040)],
+                    stops: [0.95, 0.98],
+                  ),
+                ),
+                child: Container(
+                  margin: EdgeInsets.all(25),
+                  child: Image.asset('assets/images/welcome1.png'),
+                ),
+              ),
             ),
             Card(
               padding: EdgeInsets.fromLTRB(40, 30, 40, 20),
@@ -44,11 +56,12 @@ class StartScreen extends StatelessWidget {
                   const Text(
                     "Always take control of your finances",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
                   ),
                   SizedBox(height: 20),
                   const Text(
                     "Finances must be arranged to set a better lifestyle in future",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 15),
