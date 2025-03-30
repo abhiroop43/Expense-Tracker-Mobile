@@ -18,12 +18,12 @@ class MyApp extends StatelessWidget {
       darkTheme: FluentThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily ?? 'DefaultFont',
         brightness: Brightness.dark,
-        accentColor: AccentColor.swatch({'normal': Color(0xFFbbff36)}),
-        scaffoldBackgroundColor: Color(0xFF272727),
+        accentColor: AccentColor.swatch({'normal': Color(0xFFA3E63B)}),
+        scaffoldBackgroundColor: Color(0xFF171717),
       ),
       theme: FluentThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily ?? 'DefaultFont',
-        accentColor: AccentColor.swatch({'normal': Color(0xFFbbff36)}),
+        accentColor: AccentColor.swatch({'normal': Color(0xFFA3E63B)}),
       ),
       home: StartScreen(),
     );

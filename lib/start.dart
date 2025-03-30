@@ -39,7 +39,7 @@ class StartScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFF272727), Color(0xFF404040)],
+                    colors: [Color(0xFF171717), Color(0xFF2B2B2B)],
                     stops: [0.95, 0.98],
                   ),
                 ),
@@ -51,7 +51,7 @@ class StartScreen extends StatelessWidget {
             ),
             Card(
               padding: EdgeInsets.fromLTRB(40, 30, 40, 25),
-              backgroundColor: Color(0xFF191919),
+              backgroundColor: Color(0xFF171717),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,

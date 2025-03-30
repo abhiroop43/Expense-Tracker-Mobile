@@ -26,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
             IconButton(
               icon: const Icon(FluentIcons.chevron_left_med, size: 18.0),
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Color(0xFF666666)),
+                backgroundColor: WidgetStateProperty.all(Color(0xFF515151)),
                 shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
