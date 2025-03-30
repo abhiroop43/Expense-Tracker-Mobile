@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.poppins().fontFamily ?? 'DefaultFont',
         brightness: Brightness.dark,
         accentColor: AccentColor.swatch({'normal': Color(0xFFbbff36)}),
+        scaffoldBackgroundColor: Color(0xFF272727),
       ),
       theme: FluentThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily ?? 'DefaultFont',

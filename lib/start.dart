@@ -1,6 +1,5 @@
-// import 'package:flutter/material.dart';
-
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_expense_tracker/auth/screens/auth.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -19,7 +18,13 @@ class StartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   HyperlinkButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        FluentPageRoute(
+                          builder: (context) => AuthScreen(isLogin: true),
+                        ),
+                      );
+                    },
                     style: ButtonStyle(
                       foregroundColor: WidgetStateProperty.all(Colors.white),
                     ),
@@ -34,7 +39,7 @@ class StartScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFF252525), Color(0xFF404040)],
+                    colors: [Color(0xFF272727), Color(0xFF404040)],
                     stops: [0.95, 0.98],
                   ),
                 ),
@@ -45,7 +50,7 @@ class StartScreen extends StatelessWidget {
               ),
             ),
             Card(
-              padding: EdgeInsets.fromLTRB(40, 30, 40, 20),
+              padding: EdgeInsets.fromLTRB(40, 30, 40, 25),
               backgroundColor: Color(0xFF191919),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +71,13 @@ class StartScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 15),
                   FilledButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        FluentPageRoute(
+                          builder: (context) => AuthScreen(isLogin: false),
+                        ),
+                      );
+                    },
                     style: ButtonStyle(
                       padding: WidgetStateProperty.all(
                         EdgeInsets.symmetric(vertical: 12, horizontal: 0),
@@ -85,7 +96,6 @@ class StartScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // SizedBox(height: 20),
                 ],
               ),
             ),
