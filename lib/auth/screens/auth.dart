@@ -1,5 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart';
-// import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
   final bool isLogin;
@@ -38,8 +37,22 @@ class _AuthScreenState extends State<AuthScreen> {
           ],
         ),
       ),
-      content: Center(
-        child: widget.isLogin ? Text("Login Screen") : Text("Register Screen"),
+      content: Container(
+        margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Let's\nGet Started",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+                ),
+                SizedBox(width: 10),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
