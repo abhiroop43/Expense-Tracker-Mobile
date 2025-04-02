@@ -10,6 +10,13 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
@@ -39,19 +46,45 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
       content: Container(
         margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Let's\nGet Started",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Let's\nGet Started",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+                  ),
+                  SizedBox(width: 10),
+                ],
+              ),
+              SizedBox(height: 30),
+              Text("Create an account to track your expenses"),
+              SizedBox(height: 10),
+              TextFormBox(
+                controller: nameController,
+                placeholder: "Enter your name",
+                expands: false,
+                style: TextStyle(height: 2.5),
+                padding: EdgeInsets.fromLTRB(12, 8, 12, 12),
+                prefix: Padding(
+                  padding: EdgeInsets.only(left: 8.0, right: 4.0),
+                  child: Icon(
+                    FluentIcons.people_add,
+                  ), // Replace with your desired icon
                 ),
-                SizedBox(width: 10),
-              ],
-            ),
-          ],
+                decoration: WidgetStateProperty.all(
+                  BoxDecoration(
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(15),
+                  ), // Optional: for rounded corners
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
