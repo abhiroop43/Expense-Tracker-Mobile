@@ -1,6 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_expense_tracker/auth/screens/password_reset.dart';
 import 'package:flutter_expense_tracker/auth/widgets/text_box_with_icon.dart';
 import 'package:flutter_expense_tracker/expenses/screens/dashboard.dart';
+import 'package:flutter_expense_tracker/start.dart';
 
 class AuthScreen extends StatefulWidget {
   final bool isLogin;
@@ -35,23 +37,6 @@ class _AuthScreenState extends State<AuthScreen> {
         return;
       }
 
-      // if (_passwordController.text != _confirmPasswordController.text) {
-      //   await displayInfoBar(
-      //     context,
-      //     builder: (context, close) {
-      //       return InfoBar(
-      //         title: const Text('Error: Passwords do not match'),
-      //         action: IconButton(
-      //           icon: const Icon(FluentIcons.clear),
-      //           onPressed: close,
-      //         ),
-      //         severity: InfoBarSeverity.error,
-      //       );
-      //     },
-      //   );
-      //   return;
-      // }
-
       _formKey.currentState!.save();
 
       await displayInfoBar(
@@ -59,7 +44,11 @@ class _AuthScreenState extends State<AuthScreen> {
         builder: (context, close) {
           return InfoBar(
             title: const Text('Success'),
-            content: const Text('Successfully registered.'),
+            content: Text(
+              widget.isLogin
+                  ? 'Successfully logged in'
+                  : 'Successfully registered.',
+            ),
             action: IconButton(
               icon: const Icon(FluentIcons.clear),
               onPressed: close,
@@ -104,10 +93,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
-      // header: PreferredSize(
-      //   preferredSize: Size.fromHeight(5),
-      //   child: AppBar(backgroundColor: Color(0xFF272727)),
-      // ),
       header: Container(
         margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
         child: Row(
@@ -123,7 +108,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
               ),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed:
+                  () => Navigator.of(context).pushAndRemoveUntil(
+                    FluentPageRoute(builder: (context) => StartScreen()),
+                    (route) => false,
+                  ),
             ),
           ],
         ),
@@ -140,7 +129,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Let's\nGet Started",
+                      widget.isLogin
+                          ? "Hey,\nWelcome Back"
+                          : "Let's\nGet Started",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w900,
@@ -150,24 +141,29 @@ class _AuthScreenState extends State<AuthScreen> {
                   ],
                 ),
                 SizedBox(height: 30),
-                Text("Create an account to track your expenses"),
-                SizedBox(height: 10),
-                TextBoxWithIcon(
-                  formKey: _formKey,
-                  textEditingController: _nameController,
-                  placeholder: "Enter your name",
-                  icon: FluentIcons.people_add,
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your name.';
-                    }
-                    if (value.length < 3 || value.length > 50) {
-                      return 'Name must be between 3 and 50 characters.';
-                    }
-                    return null;
-                  },
+                Text(
+                  widget.isLogin
+                      ? "Login now to track all your expenses"
+                      : "Create an account to track your expenses",
                 ),
+                SizedBox(height: 10),
+                if (!widget.isLogin)
+                  TextBoxWithIcon(
+                    formKey: _formKey,
+                    textEditingController: _nameController,
+                    placeholder: "Enter your name",
+                    icon: FluentIcons.people_add,
+                    keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name.';
+                      }
+                      if (value.length < 3 || value.length > 50) {
+                        return 'Name must be between 3 and 50 characters.';
+                      }
+                      return null;
+                    },
+                  ),
                 TextBoxWithIcon(
                   formKey: _formKey,
                   textEditingController: _emailController,
@@ -198,26 +194,49 @@ class _AuthScreenState extends State<AuthScreen> {
                     return null;
                   },
                 ),
-                TextBoxWithIcon(
-                  formKey: _formKey,
-                  textEditingController: _confirmPasswordController,
-                  placeholder: "Re-enter the password",
-                  icon: FluentIcons.password_field,
-                  keyboardType: TextInputType.text,
-                  isPassword: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please re-enter the password.';
-                    }
-                    if (value.length < 6 || value.length > 50) {
-                      return 'Password must be between 6 and 50 characters';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match.';
-                    }
-                    return null;
-                  },
-                ),
+
+                if (!widget.isLogin)
+                  TextBoxWithIcon(
+                    formKey: _formKey,
+                    textEditingController: _confirmPasswordController,
+                    placeholder: "Re-enter the password",
+                    icon: FluentIcons.password_field,
+                    keyboardType: TextInputType.text,
+                    isPassword: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please re-enter the password.';
+                      }
+                      if (value.length < 6 || value.length > 50) {
+                        return 'Password must be between 6 and 50 characters';
+                      }
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match.';
+                      }
+                      return null;
+                    },
+                  ),
+                if (widget.isLogin)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      HyperlinkButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            FluentPageRoute(
+                              builder: (context) => PasswordResetScreen(),
+                            ),
+                          );
+                        },
+                        style: ButtonStyle(
+                          foregroundColor: WidgetStateProperty.all(
+                            Colors.white,
+                          ),
+                        ),
+                        child: const Text("Forgot Password?"),
+                      ),
+                    ],
+                  ),
                 SizedBox(height: 15),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -236,12 +255,35 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ),
                       child: Text(
-                        "Sign Up",
+                        widget.isLogin ? "Login" : "Sign Up",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      !widget.isLogin
+                          ? "Already have an account?"
+                          : "Don't have an account?",
+                    ),
+                    HyperlinkButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          FluentPageRoute(
+                            builder:
+                                (context) =>
+                                    AuthScreen(isLogin: !widget.isLogin),
+                          ),
+                        );
+                      },
+                      child: Text(!widget.isLogin ? "Login" : "Sign up"),
                     ),
                   ],
                 ),

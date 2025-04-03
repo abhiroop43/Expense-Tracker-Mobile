@@ -29,18 +29,39 @@ class _TextBoxWithIconState extends State<TextBoxWithIcon> {
 
   @override
   Widget build(BuildContext context) {
+    void checkError() {
+      if (widget.validator != null) {
+        final error = widget.validator!(widget.textEditingController.text);
+        setState(() {
+          hasError = error != null;
+        });
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
       child: Focus(
         onFocusChange: (focused) {
-          if (!focused && widget.validator != null) {
-            final error = widget.validator!(widget.textEditingController.text);
-            setState(() {
-              hasError = error != null;
-            });
+          if (!focused) {
+            checkError();
           }
         },
         child: TextFormBox(
+          onChanged: (value) {
+            checkError();
+          },
+          onEditingComplete: () {
+            checkError();
+          },
+          onTap: () {
+            checkError();
+          },
+          onFieldSubmitted: (value) {
+            checkError();
+          },
+          onSaved: (value) {
+            checkError();
+          },
           keyboardType: widget.keyboardType,
           highlightColor: Colors.transparent,
           unfocusedColor: Colors.transparent,
