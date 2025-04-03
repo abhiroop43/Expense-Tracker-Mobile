@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_expense_tracker/auth/widgets/text_box_with_icon.dart';
 
 class AuthScreen extends StatefulWidget {
   final bool isLogin;
@@ -64,24 +65,56 @@ class _AuthScreenState extends State<AuthScreen> {
               SizedBox(height: 30),
               Text("Create an account to track your expenses"),
               SizedBox(height: 10),
-              TextFormBox(
-                controller: nameController,
+              TextBoxWithIcon(
+                textEditingController: nameController,
                 placeholder: "Enter your name",
-                expands: false,
-                style: TextStyle(height: 2.5),
-                padding: EdgeInsets.fromLTRB(12, 8, 12, 12),
-                prefix: Padding(
-                  padding: EdgeInsets.only(left: 8.0, right: 4.0),
-                  child: Icon(
-                    FluentIcons.people_add,
-                  ), // Replace with your desired icon
-                ),
-                decoration: WidgetStateProperty.all(
-                  BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(15),
-                  ), // Optional: for rounded corners
-                ),
+                icon: FluentIcons.people_add,
+                keyboardType: TextInputType.name,
+              ),
+              TextBoxWithIcon(
+                textEditingController: nameController,
+                placeholder: "Enter your email",
+                icon: FluentIcons.mail,
+                keyboardType: TextInputType.name,
+              ),
+              TextBoxWithIcon(
+                textEditingController: nameController,
+                placeholder: "Enter a password",
+                icon: FluentIcons.password_field,
+                keyboardType: TextInputType.name,
+              ),
+              TextBoxWithIcon(
+                textEditingController: nameController,
+                placeholder: "Re-enter the password",
+                icon: FluentIcons.password_field,
+                keyboardType: TextInputType.name,
+              ),
+              SizedBox(height: 15),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  FilledButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      padding: WidgetStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                      ),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

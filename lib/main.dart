@@ -16,6 +16,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: FluentThemeData(
+        // focusTheme: FocusThemeData(
+        //   borderRadius: BorderRadius.zero,
+        //   glowColor: AccentColor.swatch({
+        //     'normal': Color(0xFFbbff36),
+        //   }).withValues(alpha: 0.2),
+        //   glowFactor: 0.0,
+        //   primaryBorder: BorderSide(width: 2.0, color: Colors.transparent),
+        // ),
         fontFamily: GoogleFonts.poppins().fontFamily ?? 'DefaultFont',
         brightness: Brightness.dark,
         accentColor: AccentColor.swatch({'normal': Color(0xFFbbff36)}),
