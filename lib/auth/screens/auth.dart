@@ -248,11 +248,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         padding: WidgetStateProperty.all(
                           EdgeInsets.symmetric(vertical: 12, horizontal: 0),
                         ),
-                        shape: WidgetStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                        ),
+                        // shape: WidgetStateProperty.all(
+                        //   RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.circular(18.0),
+                        //   ),
+                        // ),
                       ),
                       child: Text(
                         widget.isLogin ? "Login" : "Sign Up",

@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/auth/screens/auth.dart';
+import 'package:flutter_expense_tracker/common/colors.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -39,7 +40,10 @@ class StartScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFF171717), Color(0xFF2B2B2B)],
+                    colors: [
+                      ThemeColors.backgroundColor,
+                      ThemeColors.gradientEdgeColor,
+                    ],
                     stops: [0.95, 0.98],
                   ),
                 ),
@@ -51,7 +55,7 @@ class StartScreen extends StatelessWidget {
             ),
             Card(
               padding: EdgeInsets.fromLTRB(40, 30, 40, 25),
-              backgroundColor: Color(0xFF171717),
+              backgroundColor: ThemeColors.backgroundColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,11 +86,11 @@ class StartScreen extends StatelessWidget {
                       padding: WidgetStateProperty.all(
                         EdgeInsets.symmetric(vertical: 12, horizontal: 0),
                       ),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                      ),
+                      // shape: WidgetStateProperty.all(
+                      //   RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(18.0),
+                      //   ),
+                      // ),
                     ),
                     child: Text(
                       "Get Started",
