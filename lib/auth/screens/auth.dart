@@ -1,7 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/auth/screens/password_reset.dart';
 import 'package:flutter_expense_tracker/auth/widgets/text_box_with_icon.dart';
-import 'package:flutter_expense_tracker/expenses/screens/dashboard.dart';
+import 'package:flutter_expense_tracker/common/extensions.dart';
+import 'package:flutter_expense_tracker/expenses/screens/home.dart';
 import 'package:flutter_expense_tracker/start.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -64,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
       Navigator.of(
         context,
-      ).push(FluentPageRoute(builder: (context) => DashboardScreen()));
+      ).push(FluentPageRoute(builder: (context) => HomeScreen()));
     } catch (error) {
       debugPrint(error.toString());
 
@@ -76,9 +77,8 @@ class _AuthScreenState extends State<AuthScreen> {
         context,
         builder: (context, close) {
           return InfoBar(
-            title: const Text(
-              'Unable to register user. Please try again later.',
-            ),
+            title: const Text('Error'),
+            content: const Text('Please try again later.'),
             action: IconButton(
               icon: const Icon(FluentIcons.clear),
               onPressed: close,
@@ -152,7 +152,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     formKey: _formKey,
                     textEditingController: _nameController,
                     placeholder: "Enter your name",
-                    icon: FluentIcons.people_add,
+                    icon: FluentIcons.contact,
                     keyboardType: TextInputType.name,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -168,11 +168,15 @@ class _AuthScreenState extends State<AuthScreen> {
                   formKey: _formKey,
                   textEditingController: _emailController,
                   placeholder: "Enter your email",
-                  icon: FluentIcons.mail,
+                  icon: FluentIcons.accounts,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email.';
+                    }
+                    // check if valid email format
+                    if (!value.isValidEmail()) {
+                      return 'Please enter a valid email address.';
                     }
                     return null;
                   },

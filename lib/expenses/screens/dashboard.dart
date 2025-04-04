@@ -10,8 +10,6 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    return ScaffoldPage(
-      content: Center(child: Text("This is the dashboard screen")),
-    );
+    return Center(child: Text("This is the dashboard screen"));
   }
 }
