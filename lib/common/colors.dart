@@ -5,4 +5,5 @@ class ThemeColors {
   static Color backgroundColor = Color(0xFF171717);
   static Color gradientEdgeColor = Color(0xFF404040);
   static Color textBoxBorderColor = Color(0x8bffffff);
+  static Color elementBackgroundColor = Color(0xFF333333);
 }

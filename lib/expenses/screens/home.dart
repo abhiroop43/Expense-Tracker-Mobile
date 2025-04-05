@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/expenses/screens/dashboard.dart';
 import 'package:flutter_expense_tracker/expenses/screens/profiles.dart';
 import 'package:flutter_expense_tracker/expenses/screens/trends.dart';
@@ -22,24 +23,59 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double topPadding = 15.0;
+    final double bottomPadding = 35.0;
+    // final double horizontalPadding = 5.0;
+    final double iconSize = 25;
     return ScaffoldPage(
       bottomBar: BottomNavigation(
+        style: BottomNavigationThemeData(
+          inactiveColor: Colors.white,
+          backgroundColor: ThemeColors.elementBackgroundColor,
+        ),
         items: [
           BottomNavigationItem(
-            icon: Icon(FluentIcons.home, color: Colors.white),
-            selectedIcon: Icon(FluentIcons.home),
+            icon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.home, size: iconSize),
+            ),
+            selectedIcon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.home, size: iconSize),
+            ),
           ),
+
           BottomNavigationItem(
-            icon: Icon(FluentIcons.p_b_i_column, color: Colors.white),
-            selectedIcon: Icon(FluentIcons.p_b_i_column),
+            icon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.p_b_i_column, size: iconSize),
+            ),
+            selectedIcon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.p_b_i_column, size: iconSize),
+            ),
           ),
+
           BottomNavigationItem(
-            icon: Icon(FluentIcons.payment_card, color: Colors.white),
-            selectedIcon: Icon(FluentIcons.payment_card),
+            icon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.payment_card, size: iconSize),
+            ),
+            selectedIcon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.payment_card, size: iconSize),
+            ),
           ),
+
           BottomNavigationItem(
-            icon: Icon(FluentIcons.contact, color: Colors.white),
-            selectedIcon: Icon(FluentIcons.contact),
+            icon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.contact, size: iconSize),
+            ),
+            selectedIcon: Padding(
+              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
+              child: Icon(FluentIcons.contact, size: iconSize),
+            ),
           ),
         ],
         index: _currentPageIndex,
