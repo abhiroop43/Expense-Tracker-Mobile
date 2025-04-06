@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
-import 'package:flutter_expense_tracker/expenses/widgets/expenses_cards.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/wallet_carousel.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/new_item.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/search.dart';
 
@@ -23,7 +23,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +84,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                   SizedBox(height: 25),
-                  ExpensesCards(),
+                  SizedBox(
+                    height: 180, // Provide explicit height
+                    child: WalletCarousel(),
+                  ),
+                  SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Recent Transactions",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
