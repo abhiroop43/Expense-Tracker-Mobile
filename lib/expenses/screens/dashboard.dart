@@ -1,6 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart' as material;
 import 'package:flutter_expense_tracker/common/colors.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/expenses_cards.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/new_item.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/search.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -47,19 +49,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: IconButton(
                           icon: const Icon(FluentIcons.search, size: 20.0),
                           style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.all(
-                              ThemeColors.elementBackgroundColor,
+                            backgroundColor: WidgetStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.isPressed) {
+                                return ThemeColors.elementBackgroundColor
+                                    .withValues(alpha: 0.7);
+                              }
+                              return ThemeColors.elementBackgroundColor;
+                            }),
+                            foregroundColor: WidgetStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.isPressed) {
+                                return Colors.white.withValues(alpha: 0.7);
+                              }
+                              return Colors.white;
+                            }),
+                            shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
                             ),
                           ),
                           onPressed: () {
-                            debugPrint('pressed button');
+                            showDialog(
+                              context: context,
+                              builder: (context) => NewItemModal(),
+                              barrierDismissible: true,
+                            );
                           },
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 25),
-                  Text("This is the dashboard screen"),
+                  ExpensesCards(),
                 ],
               ),
             ],
@@ -67,11 +92,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Positioned(
             top: MediaQuery.of(context).size.height * 0.79,
             left: MediaQuery.of(context).size.width * 0.75,
-            child: material.FloatingActionButton(
+            child: IconButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.isPressed) {
+                    return ThemeColors.primaryColor.withValues(alpha: 0.7);
+                  }
+                  return ThemeColors.primaryColor;
+                }),
+                foregroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.isPressed) {
+                    return Colors.black.withValues(alpha: 0.7);
+                  }
+                  return Colors.black;
+                }),
+                padding: WidgetStateProperty.all(EdgeInsets.all(15)),
+                elevation: WidgetStateProperty.all(10),
+                shadowColor: WidgetStateProperty.all(
+                  ThemeColors.gradientEdgeColor,
+                ),
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                ),
+              ),
               onPressed: () {
-                // Handle button press
+                showDialog(
+                  context: context,
+                  builder: (context) => SearchModal(),
+                  barrierDismissible: true,
+                );
               },
-              child: Icon(FluentIcons.add),
+              icon: Icon(FluentIcons.add, size: 24),
+              iconButtonMode: IconButtonMode.large,
             ),
           ),
         ],

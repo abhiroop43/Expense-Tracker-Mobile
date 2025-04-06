@@ -27,7 +27,14 @@ class StartScreen extends StatelessWidget {
                       );
                     },
                     style: ButtonStyle(
-                      foregroundColor: WidgetStateProperty.all(Colors.white),
+                      foregroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.isPressed) {
+                          return Colors.white.withValues(alpha: 0.7);
+                        }
+                        return Colors.white;
+                      }),
                     ),
                     child: const Text("Sign in"),
                   ),
