@@ -34,15 +34,131 @@ class WalletCarousel extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    "Card 1",
-                    style: FluentTheme.of(
-                      context,
-                    ).typography.titleLarge!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "Total balance",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                "\$ 484.00",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(FluentIcons.more, size: 24.0),
+                            style: ButtonStyle(
+                              foregroundColor: WidgetStateProperty.all(
+                                Colors.black,
+                              ),
+                            ),
+                            onPressed: () => debugPrint('pressed more'),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(width: 0),
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        ThemeColors.textBoxBorderColor,
+                                    radius: 10,
+                                    child: Icon(
+                                      FluentIcons.down,
+                                      color: Colors.black,
+                                      size: 12,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Income",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 2.0,
+                                ),
+                                child: Text(
+                                  "\$ 2379.00",
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: 8),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(width: 0),
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        ThemeColors.textBoxBorderColor,
+                                    radius: 10,
+                                    child: Icon(
+                                      FluentIcons.down,
+                                      color: Colors.black,
+                                      size: 12,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Expense",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 10.0,
+                                  right: 2.0,
+                                ),
+                                child: Text(
+                                  "\$ 1895.00",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
