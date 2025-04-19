@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/transactions_list.dart';
@@ -17,11 +15,24 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    var test =
-        MediaQuery.of(context).size.height -
-        MediaQuery.of(context).size.width * 1.2;
+    // var screenHeight = MediaQuery.of(context).size.height;
+    var pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    double transactionListHeight;
 
-    debugPrint("Height: $test");
+    if (pixelRatio <= 2.0) {
+      transactionListHeight = 165;
+    } else if (pixelRatio > 2.0 && pixelRatio < 2.5) {
+      transactionListHeight = 320;
+    } else if (pixelRatio >= 2.5 && pixelRatio < 3.0) {
+      transactionListHeight = 430;
+    } else {
+      transactionListHeight = 500;
+    }
+
+    debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
+    debugPrint("Height: ${MediaQuery.of(context).size.height}");
+    debugPrint("Width: ${MediaQuery.of(context).size.width}");
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
       child: Stack(
@@ -105,11 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: math.max(
-                      MediaQuery.of(context).size.height -
-                          MediaQuery.of(context).size.width * 1.2,
-                      168,
-                    ),
+                    height: transactionListHeight,
                     child: TransactionsList(),
                   ),
                 ],
@@ -117,8 +124,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.8,
-            left: MediaQuery.of(context).size.width * 0.8,
+            top: MediaQuery.of(context).size.height * 0.78,
+            left: MediaQuery.of(context).size.width * 0.78,
             child: IconButton(
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
