@@ -14,9 +14,9 @@ class TransactionsList extends StatelessWidget {
       itemCount: transactions.length, // entries.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          height: 50,
+          height: 70,
           color: ThemeColors.elementBackgroundColor,
-          child: TransactionItem(),
+          child: TransactionItem(transaction: transactions[index]),
         );
       },
       separatorBuilder:

@@ -33,10 +33,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Hello,"),
+              Text(
+                "Hello,",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w100),
+              ),
               Text(
                 "Abhiroop",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800),
               ),
             ],
           ),
