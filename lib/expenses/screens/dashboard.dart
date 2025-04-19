@@ -13,35 +13,82 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  double _getTransactionListHeight(double screenHeight) {
+    if (screenHeight < 650) return 160;
+    if (screenHeight < 700) return 190;
+    if (screenHeight < 750) return 250;
+    if (screenHeight < 800) return 310;
+    if (screenHeight < 850) return 350;
+    if (screenHeight < 900) return 390;
+    if (screenHeight < 950) return 430;
+    return 510;
+  }
+
+  Row _buildHeader(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 35, 0, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Hello,"),
+              Text(
+                "Abhiroop",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0, right: 10),
+          child: IconButton(
+            icon: const Icon(FluentIcons.search, size: 20.0),
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.isPressed) {
+                  return ThemeColors.elementBackgroundColor.withValues(
+                    alpha: 0.7,
+                  );
+                }
+                return ThemeColors.elementBackgroundColor;
+              }),
+              foregroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.isPressed) {
+                  return Colors.white.withValues(alpha: 0.7);
+                }
+                return Colors.white;
+              }),
+              shape: WidgetStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => SearchModal(),
+                barrierDismissible: true,
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     // var pixelRatio = MediaQuery.of(context).devicePixelRatio;
-    double transactionListHeight;
+    double transactionListHeight = _getTransactionListHeight(screenHeight);
+    const double kHeaderPadding = 8.0;
 
-    if (screenHeight < 650) {
-      transactionListHeight = 160;
-    } else if (screenHeight >= 650 && screenHeight < 700) {
-      transactionListHeight = 190;
-    } else if (screenHeight >= 700 && screenHeight < 750) {
-      transactionListHeight = 230;
-    } else if (screenHeight >= 750 && screenHeight < 800) {
-      transactionListHeight = 270;
-    } else if (screenHeight >= 750 && screenHeight < 800) {
-      transactionListHeight = 310;
-    } else if (screenHeight >= 800 && screenHeight < 850) {
-      transactionListHeight = 350;
-    } else if (screenHeight >= 850 && screenHeight < 900) {
-      transactionListHeight = 390;
-    } else if (screenHeight >= 900 && screenHeight < 950) {
-      transactionListHeight = 430;
-    } else {
-      transactionListHeight = 510;
-    }
-
-    debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
-    debugPrint("Height: ${MediaQuery.of(context).size.height}");
-    debugPrint("Width: ${MediaQuery.of(context).size.width}");
+    // debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
+    // debugPrint("Height: ${MediaQuery.of(context).size.height}");
+    // debugPrint("Width: ${MediaQuery.of(context).size.width}");
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -54,69 +101,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 35, 0, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Hello,"),
-                            Text(
-                              "Abhiroop",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0, right: 10),
-                        child: IconButton(
-                          icon: const Icon(FluentIcons.search, size: 20.0),
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStateProperty.resolveWith((
-                              states,
-                            ) {
-                              if (states.isPressed) {
-                                return ThemeColors.elementBackgroundColor
-                                    .withValues(alpha: 0.7);
-                              }
-                              return ThemeColors.elementBackgroundColor;
-                            }),
-                            foregroundColor: WidgetStateProperty.resolveWith((
-                              states,
-                            ) {
-                              if (states.isPressed) {
-                                return Colors.white.withValues(alpha: 0.7);
-                              }
-                              return Colors.white;
-                            }),
-                            shape: WidgetStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => NewItemModal(),
-                              barrierDismissible: true,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                  _buildHeader(context),
                   SizedBox(height: 25),
                   SizedBox(height: 180, child: WalletCarousel()),
                   SizedBox(height: 25),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(kHeaderPadding),
                     child: Text(
                       "Recent Transactions",
                       style: TextStyle(
@@ -164,7 +154,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (context) => SearchModal(),
+                  builder: (context) => NewItemModal(),
                   barrierDismissible: true,
                 );
               },
