@@ -15,18 +15,28 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    // var screenHeight = MediaQuery.of(context).size.height;
-    var pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    var screenHeight = MediaQuery.of(context).size.height;
+    // var pixelRatio = MediaQuery.of(context).devicePixelRatio;
     double transactionListHeight;
 
-    if (pixelRatio <= 2.0) {
-      transactionListHeight = 165;
-    } else if (pixelRatio > 2.0 && pixelRatio < 2.5) {
-      transactionListHeight = 320;
-    } else if (pixelRatio >= 2.5 && pixelRatio < 3.0) {
+    if (screenHeight < 650) {
+      transactionListHeight = 160;
+    } else if (screenHeight >= 650 && screenHeight < 700) {
+      transactionListHeight = 190;
+    } else if (screenHeight >= 700 && screenHeight < 750) {
+      transactionListHeight = 230;
+    } else if (screenHeight >= 750 && screenHeight < 800) {
+      transactionListHeight = 270;
+    } else if (screenHeight >= 750 && screenHeight < 800) {
+      transactionListHeight = 310;
+    } else if (screenHeight >= 800 && screenHeight < 850) {
+      transactionListHeight = 350;
+    } else if (screenHeight >= 850 && screenHeight < 900) {
+      transactionListHeight = 390;
+    } else if (screenHeight >= 900 && screenHeight < 950) {
       transactionListHeight = 430;
     } else {
-      transactionListHeight = 500;
+      transactionListHeight = 510;
     }
 
     debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
