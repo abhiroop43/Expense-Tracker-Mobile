@@ -1,5 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/transactions_list.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/wallet_carousel.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/new_item.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/search.dart';
@@ -14,6 +17,11 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
+    var test =
+        MediaQuery.of(context).size.height -
+        MediaQuery.of(context).size.width * 1.2;
+
+    debugPrint("Height: $test");
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
       child: Stack(
@@ -84,10 +92,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                   SizedBox(height: 25),
-                  SizedBox(
-                    height: 180, // Provide explicit height
-                    child: WalletCarousel(),
-                  ),
+                  SizedBox(height: 180, child: WalletCarousel()),
                   SizedBox(height: 25),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -98,6 +103,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         fontWeight: FontWeight.w900,
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: math.max(
+                      MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).size.width * 1.2,
+                      168,
+                    ),
+                    child: TransactionsList(),
                   ),
                 ],
               ),
