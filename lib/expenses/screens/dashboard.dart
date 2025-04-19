@@ -104,8 +104,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.79,
-            left: MediaQuery.of(context).size.width * 0.75,
+            top: MediaQuery.of(context).size.height * 0.8,
+            left: MediaQuery.of(context).size.width * 0.8,
             child: IconButton(
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
