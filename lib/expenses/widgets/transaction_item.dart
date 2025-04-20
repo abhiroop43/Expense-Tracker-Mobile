@@ -24,6 +24,25 @@ class TransactionItem extends StatelessWidget {
       "Nov",
       "Dec",
     ];
+    String amount;
+    TextStyle amountStyle;
+    String description;
+
+    // format amount based on transaction type
+    if (transaction.transactionType == "Income") {
+      amount = "+ \$${transaction.amount}";
+      amountStyle = TextStyle(color: Colors.green.lightest, fontSize: 16);
+    } else {
+      amount = "- \$${transaction.amount}";
+      amountStyle = TextStyle(color: Colors.red.light, fontSize: 16);
+    }
+
+    // clip long descriptions to fit in the card
+    if (transaction.description.length > 20) {
+      description = "${transaction.description.substring(0, 17)}...";
+    } else {
+      description = transaction.description;
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -43,7 +62,7 @@ class TransactionItem extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  transaction.description,
+                  description,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w200,
@@ -58,11 +77,11 @@ class TransactionItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("- \$25"),
+              Text(amount, style: amountStyle),
               Text(
                 style: TextStyle(
                   color: ThemeColors.walletCardColor2,
-                  fontSize: 12,
+                  fontSize: 11,
                 ),
                 "${transaction.transactionDate.day} ${kMonths[transaction.transactionDate.month - 1]} ${transaction.transactionDate.year.toString().substring(2)}",
               ),
