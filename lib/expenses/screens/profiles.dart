@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/profile_buttons.dart';
 
 class ProfilesScreen extends StatefulWidget {
   const ProfilesScreen({super.key});
@@ -10,6 +11,8 @@ class ProfilesScreen extends StatefulWidget {
 class _ProfilesScreenState extends State<ProfilesScreen> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -59,6 +62,19 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
                 ),
               ),
             ),
+
+            SizedBox(height: 20),
+
+            ProfileButtons(
+              screenWidth: screenWidth,
+              buttonType: "Edit Profile",
+            ),
+            ProfileButtons(screenWidth: screenWidth, buttonType: "Settings"),
+            ProfileButtons(
+              screenWidth: screenWidth,
+              buttonType: "Privacy Policy",
+            ),
+            ProfileButtons(screenWidth: screenWidth, buttonType: "Logout"),
           ],
         ),
       ],
