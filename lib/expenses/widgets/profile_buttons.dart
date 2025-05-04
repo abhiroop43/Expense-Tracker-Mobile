@@ -63,9 +63,10 @@ class ProfileButtons extends StatelessWidget {
         child: Row(
           children: [
             Card(
+              padding: EdgeInsets.all(8),
               backgroundColor: backgroundColor,
               borderRadius: BorderRadius.circular(12),
-              child: Icon(icon, color: Colors.white),
+              child: Icon(icon, color: Colors.white, size: 24),
             ),
             Expanded(
               flex: 1,
