@@ -13,16 +13,16 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  double _getTransactionListHeight(double screenHeight) {
-    if (screenHeight < 650) return 160;
-    if (screenHeight < 700) return 190;
-    if (screenHeight < 750) return 250;
-    if (screenHeight < 800) return 310;
-    if (screenHeight < 850) return 350;
-    if (screenHeight < 900) return 390;
-    if (screenHeight < 950) return 430;
-    return 440;
-  }
+  // double _getTransactionListHeight(double screenHeight) {
+  //   if (screenHeight < 650) return 160;
+  //   if (screenHeight < 700) return 190;
+  //   if (screenHeight < 750) return 250;
+  //   if (screenHeight < 800) return 310;
+  //   if (screenHeight < 850) return 350;
+  //   if (screenHeight < 900) return 390;
+  //   if (screenHeight < 950) return 430;
+  //   return 440;
+  // }
 
   Row _buildHeader(BuildContext context) {
     return Row(
@@ -85,10 +85,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
     // var pixelRatio = MediaQuery.of(context).devicePixelRatio;
-    double transactionListHeight = _getTransactionListHeight(screenHeight);
-    const double kHeaderPaddingHorizontal = 8.0;
-    const double kHeaderPaddingVertical = 8.0;
+    // double transactionListHeight = _getTransactionListHeight(screenHeight);
+    double gap = screenHeight * 0.04;
+    double carouselHeight = screenHeight * 0.3;
 
     debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
     debugPrint("Height: ${MediaQuery.of(context).size.height}");
@@ -102,37 +103,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(context),
-                  SizedBox(height: 25),
-                  SizedBox(height: 180, child: WalletCarousel()),
-                  SizedBox(height: 25),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: kHeaderPaddingHorizontal,
-                      vertical: kHeaderPaddingVertical,
-                    ),
-                    child: Text(
-                      "Recent Transactions",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
+              _buildHeader(context),
+              SizedBox(height: gap),
+              SizedBox(height: carouselHeight, child: WalletCarousel()),
+              SizedBox(height: gap),
+              Padding(
+                padding: EdgeInsets.all(screenHeight * 0.009),
+                child: Text(
+                  "Recent Transactions",
+                  style: TextStyle(
+                    fontSize: screenHeight * 0.03,
+                    fontWeight: FontWeight.w900,
                   ),
-                  SizedBox(
-                    height: transactionListHeight,
-                    child: TransactionsList(),
-                  ),
-                ],
+                ),
               ),
+
+              // SizedBox(
+              //   height: transactionListHeight,
+              //   child: TransactionsList(),
+              // ),
+              Expanded(child: TransactionsList()),
             ],
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.78,
-            left: MediaQuery.of(context).size.width * 0.78,
+            top: screenHeight * 0.75,
+            left: screenWidth * 0.75,
             child: IconButton(
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
@@ -165,7 +160,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   barrierDismissible: true,
                 );
               },
-              icon: Icon(FluentIcons.add, size: 24),
+              icon: Icon(FluentIcons.add, size: screenHeight * 0.03),
               iconButtonMode: IconButtonMode.large,
             ),
           ),
