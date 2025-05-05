@@ -13,17 +13,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  // double _getTransactionListHeight(double screenHeight) {
-  //   if (screenHeight < 650) return 160;
-  //   if (screenHeight < 700) return 190;
-  //   if (screenHeight < 750) return 250;
-  //   if (screenHeight < 800) return 310;
-  //   if (screenHeight < 850) return 350;
-  //   if (screenHeight < 900) return 390;
-  //   if (screenHeight < 950) return 430;
-  //   return 440;
-  // }
-
   Row _buildHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,7 +78,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // var pixelRatio = MediaQuery.of(context).devicePixelRatio;
     // double transactionListHeight = _getTransactionListHeight(screenHeight);
     double gap = screenHeight * 0.04;
-    double carouselHeight = screenHeight * 0.3;
+    double carouselHeight = screenHeight * 0.22;
 
     debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
     debugPrint("Height: ${MediaQuery.of(context).size.height}");

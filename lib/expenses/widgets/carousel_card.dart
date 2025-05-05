@@ -18,23 +18,35 @@ class CarouselCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return Card(
       backgroundColor: ThemeColors.walletCardColor1,
       borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-      margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(0),
+      margin: const EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(
+        vertical: screenHeight * 0.002,
+        horizontal: screenWidth * 0.001,
+      ),
       child: Stack(
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(15.0)),
             child: CustomPaint(
-              size: Size(double.infinity, double.infinity),
+              size: Size(screenHeight, screenWidth),
               painter: CurvedSeparatorPainter(),
             ),
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
+          Padding(
+            padding: EdgeInsets.only(
+              left: screenWidth * 0.03,
+              right: screenWidth * 0.04,
+              top: screenHeight * 0.02,
+              bottom: screenHeight * 0.02,
+            ),
+            child: SingleChildScrollView(
+              // Makes the content scrollable
               child: Column(
                 children: [
                   Row(
@@ -42,24 +54,31 @@ class CarouselCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Total balance",
-                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: screenHeight * 0.02,
+                            ),
                           ),
                           SizedBox(height: 8),
                           Text(
                             "\$$totalBalance",
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 24,
+                              fontSize: screenHeight * 0.025,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
                         ],
                       ),
                       IconButton(
-                        icon: const Icon(FluentIcons.more, size: 24.0),
+                        icon: Icon(
+                          FluentIcons.more,
+                          size: screenHeight * 0.025,
+                        ),
                         style: ButtonStyle(
                           foregroundColor: WidgetStateProperty.all(
                             Colors.black,
@@ -69,7 +88,7 @@ class CarouselCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: screenHeight * 0.03),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -77,14 +96,13 @@ class CarouselCard extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              SizedBox(width: 0),
                               CircleAvatar(
                                 backgroundColor: ThemeColors.textBoxBorderColor,
                                 radius: 10,
                                 child: Icon(
                                   FluentIcons.down,
                                   color: Colors.black,
-                                  size: 12,
+                                  size: screenHeight * 0.012,
                                 ),
                               ),
                               SizedBox(width: 5),
@@ -92,17 +110,15 @@ class CarouselCard extends StatelessWidget {
                                 "Income",
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 13,
+                                  fontSize: screenHeight * 0.015,
                                 ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                              left: 10.0,
-                              right: 2.0,
-                            ),
+                            padding: EdgeInsets.only(left: screenWidth * 0.06),
                             child: Text(
+                              textAlign: TextAlign.right,
                               "\$$income",
                               style: TextStyle(
                                 color: Colors.green,
@@ -117,14 +133,13 @@ class CarouselCard extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              SizedBox(width: 0),
                               CircleAvatar(
                                 backgroundColor: ThemeColors.textBoxBorderColor,
                                 radius: 10,
                                 child: Icon(
                                   FluentIcons.up,
                                   color: Colors.black,
-                                  size: 12,
+                                  size: screenHeight * 0.012,
                                 ),
                               ),
                               SizedBox(width: 5),
@@ -132,17 +147,15 @@ class CarouselCard extends StatelessWidget {
                                 "Expense",
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 13,
+                                  fontSize: screenHeight * 0.015,
                                 ),
                               ),
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                              left: 10.0,
-                              right: 2.0,
-                            ),
+                            padding: EdgeInsets.only(left: screenWidth * 0.06),
                             child: Text(
+                              textAlign: TextAlign.right,
                               "\$$expense",
                               style: TextStyle(color: Colors.red, fontSize: 17),
                             ),
