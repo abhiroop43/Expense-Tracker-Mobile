@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
-import 'package:flutter_expense_tracker/expenses/widgets/new_item.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/new_item_modal.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/search.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/transactions_list.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/wallet_carousel.dart';

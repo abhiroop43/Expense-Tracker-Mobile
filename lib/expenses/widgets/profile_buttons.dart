@@ -1,4 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/edit_profile_modal.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/privacy_policy_modal.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/settings_modal.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons({
@@ -14,19 +17,23 @@ class ProfileButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     Color backgroundColor;
     IconData icon;
+    Widget? modalWidget;
 
     switch (buttonType) {
       case "Edit Profile":
         backgroundColor = Color.fromARGB(255, 93, 0, 185);
         icon = FluentIcons.contact;
+        modalWidget = const EditProfileModal();
         break;
       case "Settings":
         backgroundColor = Color.fromARGB(255, 0, 103, 45);
         icon = FluentIcons.settings;
+        modalWidget = const SettingsModal();
         break;
       case "Privacy Policy":
         backgroundColor = Color.fromARGB(255, 72, 69, 73);
         icon = FluentIcons.suitcase;
+        modalWidget = const PrivacyPolicyModal();
         break;
       case "Logout":
         backgroundColor = Color.fromARGB(255, 157, 36, 36);
@@ -42,6 +49,13 @@ class ProfileButtons extends StatelessWidget {
       onPressed: () {
         // Handle button tap
         debugPrint("Tapped on $buttonType");
+        if (modalWidget != null) {
+          showDialog(
+            context: context,
+            builder: (context) => modalWidget as Widget,
+            barrierDismissible: true,
+          );
+        }
       },
       style: ButtonStyle(
         padding: WidgetStateProperty.all(
