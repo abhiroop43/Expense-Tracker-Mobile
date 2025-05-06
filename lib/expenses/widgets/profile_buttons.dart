@@ -46,7 +46,7 @@ class ProfileButtons extends StatelessWidget {
     }
 
     return Button(
-      onPressed: () {
+      onPressed: () async {
         // Handle button tap
         debugPrint("Tapped on $buttonType");
         if (modalWidget != null) {
@@ -54,6 +54,48 @@ class ProfileButtons extends StatelessWidget {
             context: context,
             builder: (context) => modalWidget as Widget,
             barrierDismissible: true,
+          );
+        } else {
+          // show logout dialog
+
+          await showDialog<String>(
+            context: context,
+            builder:
+                (context) => ContentDialog(
+                  title: const Text('Logout'),
+                  content: const Text('Are you sure you want to logout?'),
+                  actions: [
+                    FilledButton(
+                      onPressed: () {
+                        debugPrint("Logout user");
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.resolveWith((
+                          states,
+                        ) {
+                          if (states.isPressed) {
+                            return Color.fromARGB(
+                              255,
+                              255,
+                              108,
+                              108,
+                            ).withValues(alpha: 0.5);
+                          }
+                          return Color.fromARGB(255, 255, 108, 108);
+                        }),
+                      ),
+                      child: const Text('Logout'),
+                    ),
+
+                    Button(
+                      child: const Text('Cancel'),
+                      onPressed: () {
+                        Navigator.pop(context, 'Logout dialog dismissed');
+                        // Delete file here
+                      },
+                    ),
+                  ],
+                ),
           );
         }
       },
