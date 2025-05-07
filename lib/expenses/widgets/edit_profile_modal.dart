@@ -8,17 +8,17 @@ class EditProfileModal extends StatefulWidget {
 }
 
 class _EditProfileModalState extends State<EditProfileModal> {
+  DateTime? dateOfBirth;
+
   @override
   Widget build(BuildContext context) {
     // screen dimensions
     double screenWidth = MediaQuery.of(context).size.width;
-    // double screenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     // responsive sizes
     double avatarRadius = screenWidth * 0.25;
     double titleFontSize = screenWidth * 0.06;
-
-    DateTime? dateOfBirth;
 
     return Acrylic(
       child: Column(
@@ -48,30 +48,48 @@ class _EditProfileModalState extends State<EditProfileModal> {
           ),
           Expanded(
             child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               children: [
-                InfoLabel(
-                  label: 'Enter your name:',
-                  child: const TextBox(expands: false),
-                ),
-                InfoLabel(
-                  label: 'Change password:',
-                  child: const PasswordBox(),
-                ),
-                InfoLabel(
-                  label: 'Confirm new password:',
-                  child: const PasswordBox(),
-                ),
-                InfoLabel(
-                  label: 'Date of birth',
-                  child: DatePicker(
-                    selected: dateOfBirth,
-                    fieldFlex: const [2, 3, 2],
-                    onChanged: (time) => setState(() => dateOfBirth = time),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                  child: InfoLabel(
+                    label: 'Enter your name:',
+                    child: const TextBox(expands: false),
                   ),
                 ),
-                FilledButton(
-                  child: const Text('Update'),
-                  onPressed: () => Navigator.pop(context),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                  child: InfoLabel(
+                    label: 'Change password:',
+                    child: const PasswordBox(),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                  child: InfoLabel(
+                    label: 'Confirm new password:',
+                    child: const PasswordBox(),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+                  child: InfoLabel(
+                    label: 'Date of birth',
+                    child: Center(
+                      child: DatePicker(
+                        selected: dateOfBirth,
+                        fieldFlex: const [2, 3, 2],
+                        onChanged: (time) => setState(() => dateOfBirth = time),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
+                  child: FilledButton(
+                    child: const Text('Update'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
               ],
             ),
