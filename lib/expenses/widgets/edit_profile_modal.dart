@@ -10,19 +10,73 @@ class EditProfileModal extends StatefulWidget {
 class _EditProfileModalState extends State<EditProfileModal> {
   @override
   Widget build(BuildContext context) {
+    // screen dimensions
+    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
+
+    // responsive sizes
+    double avatarRadius = screenWidth * 0.25;
+    double titleFontSize = screenWidth * 0.06;
+
+    DateTime? dateOfBirth;
+
     return Acrylic(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const Text('Edit Profile'),
-            FilledButton(
-              child: const Text('Save'),
-              onPressed: () => Navigator.pop(context),
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(top: 25),
+            child: Text(
+              'Edit Profile',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: titleFontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-          ],
-        ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 25),
+            child: CircleAvatar(
+              backgroundColor: Colors.blue,
+              backgroundImage: NetworkImage(
+                "https://play-lh.googleusercontent.com/hJGHtbYSQ0nCnoEsK6AGojonjELeAh_Huxg361mVrPmzdwm8Ots-JzEH5488IS2nojI",
+              ),
+              // AssetImage('assets/images/avatar1.jpeg'),
+              radius: avatarRadius,
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                InfoLabel(
+                  label: 'Enter your name:',
+                  child: const TextBox(expands: false),
+                ),
+                InfoLabel(
+                  label: 'Change password:',
+                  child: const PasswordBox(),
+                ),
+                InfoLabel(
+                  label: 'Confirm new password:',
+                  child: const PasswordBox(),
+                ),
+                InfoLabel(
+                  label: 'Date of birth',
+                  child: DatePicker(
+                    selected: dateOfBirth,
+                    fieldFlex: const [2, 3, 2],
+                    onChanged: (time) => setState(() => dateOfBirth = time),
+                  ),
+                ),
+                FilledButton(
+                  child: const Text('Update'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

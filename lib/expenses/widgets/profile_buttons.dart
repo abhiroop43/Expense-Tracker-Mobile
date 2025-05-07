@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/edit_profile_modal.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/privacy_policy_modal.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/settings_modal.dart';
+import 'package:flutter_expense_tracker/start.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons({
@@ -67,7 +68,9 @@ class ProfileButtons extends StatelessWidget {
                   actions: [
                     FilledButton(
                       onPressed: () {
-                        debugPrint("Logout user");
+                        Navigator.of(context).pushReplacement(
+                          FluentPageRoute(builder: (context) => StartScreen()),
+                        );
                       },
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.resolveWith((
