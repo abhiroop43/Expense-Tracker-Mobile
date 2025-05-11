@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // final double horizontalPadding = 5.0;
     final double iconSize = 25;
     return ScaffoldPage(
+      resizeToAvoidBottomInset: false,
       bottomBar: BottomNavigation(
         style: BottomNavigationThemeData(
           inactiveColor: Colors.white,

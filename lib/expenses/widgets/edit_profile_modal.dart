@@ -47,8 +47,11 @@ class _EditProfileModalState extends State<EditProfileModal> {
             ),
           ),
           Expanded(
+            // replace with SingleChildScrollView and Form
             child: ListView(
+              scrollDirection: Axis.vertical,
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              shrinkWrap: true,
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
