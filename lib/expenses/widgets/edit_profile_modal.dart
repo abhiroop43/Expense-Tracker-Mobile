@@ -10,6 +10,11 @@ class EditProfileModal extends StatefulWidget {
 class _EditProfileModalState extends State<EditProfileModal> {
   DateTime? dateOfBirth;
 
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _rePasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // screen dimensions
@@ -21,83 +26,124 @@ class _EditProfileModalState extends State<EditProfileModal> {
     double titleFontSize = screenWidth * 0.06;
 
     return Acrylic(
-      child: Column(
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(top: 25),
-            child: Text(
-              'Edit Profile',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: titleFontSize,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: screenHeight * 0.04),
+              child: Text(
+                'Edit Profile',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: titleFontSize,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 25),
-            child: CircleAvatar(
-              backgroundColor: Colors.blue,
-              backgroundImage: NetworkImage(
-                "https://play-lh.googleusercontent.com/hJGHtbYSQ0nCnoEsK6AGojonjELeAh_Huxg361mVrPmzdwm8Ots-JzEH5488IS2nojI",
+            Container(
+              margin: EdgeInsets.only(top: screenHeight * 0.02),
+              child: CircleAvatar(
+                backgroundColor: Colors.blue,
+                backgroundImage: NetworkImage(
+                  "https://play-lh.googleusercontent.com/hJGHtbYSQ0nCnoEsK6AGojonjELeAh_Huxg361mVrPmzdwm8Ots-JzEH5488IS2nojI",
+                ),
+                // AssetImage('assets/images/avatar1.jpeg'),
+                radius: avatarRadius,
               ),
-              // AssetImage('assets/images/avatar1.jpeg'),
-              radius: avatarRadius,
             ),
-          ),
-          Expanded(
-            // replace with SingleChildScrollView and Form
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-              shrinkWrap: true,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: InfoLabel(
-                    label: 'Enter your name:',
-                    child: const TextBox(expands: false),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.015,
+                      horizontal: screenWidth * 0.04,
+                    ),
+                    child: TextFormBox(
+                      expands: false,
+                      controller: _nameController,
+                      placeholder: 'Enter your name',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your name';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: InfoLabel(
-                    label: 'Change password:',
-                    child: const PasswordBox(),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.015,
+                      horizontal: screenWidth * 0.04,
+                    ),
+                    child: TextFormBox(
+                      expands: false,
+                      controller: _passwordController,
+                      placeholder: 'Enter your password',
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: InfoLabel(
-                    label: 'Confirm new password:',
-                    child: const PasswordBox(),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.015,
+                      horizontal: screenWidth * 0.04,
+                    ),
+                    child: TextFormBox(
+                      expands: false,
+                      controller: _rePasswordController,
+                      placeholder: 'Re-enter your password',
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please re-enter your password';
+                        }
+                        if (value != _passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                  child: InfoLabel(
-                    label: 'Date of birth',
-                    child: Center(
-                      child: DatePicker(
-                        selected: dateOfBirth,
-                        fieldFlex: const [2, 3, 2],
-                        onChanged: (time) => setState(() => dateOfBirth = time),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: screenHeight * 0.015,
+                      horizontal: screenWidth * 0.04,
+                    ),
+                    child: InfoLabel(
+                      label: 'Date of birth',
+                      child: Center(
+                        child: DatePicker(
+                          selected: dateOfBirth,
+                          fieldFlex: const [4, 5, 4],
+                          onChanged:
+                              (time) => setState(() => dateOfBirth = time),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-                  child: FilledButton(
-                    child: const Text('Update'),
-                    onPressed: () => Navigator.pop(context),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
+                    child: FilledButton(
+                      child: const Text('Update'),
+                      onPressed: () => Navigator.pop(context),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
