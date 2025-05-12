@@ -16,6 +16,25 @@ class _EditProfileModalState extends State<EditProfileModal> {
   final _rePasswordController = TextEditingController();
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _passwordController.dispose();
+    _rePasswordController.dispose();
+    super.dispose();
+  }
+
+  void submitForm() {
+    if (_formKey.currentState!.validate()) {
+      // Process the data
+      debugPrint('Name: ${_nameController.text}');
+      debugPrint('Password: ${_passwordController.text}');
+      debugPrint('Re-entered Password: ${_rePasswordController.text}');
+      debugPrint('Date of Birth: $dateOfBirth');
+      Navigator.pop(context);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     // screen dimensions
     double screenWidth = MediaQuery.of(context).size.width;
@@ -136,7 +155,9 @@ class _EditProfileModalState extends State<EditProfileModal> {
                     margin: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
                     child: FilledButton(
                       child: const Text('Update'),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        submitForm();
+                      },
                     ),
                   ),
                 ],
