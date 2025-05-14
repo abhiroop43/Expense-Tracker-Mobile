@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/data/wallets.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/add_edit_wallet.dart';
 
 class WalletsScreen extends StatefulWidget {
   const WalletsScreen({super.key});
@@ -112,7 +113,13 @@ class _WalletsScreenState extends State<WalletsScreen> {
                             ),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AddEditWallet(),
+                            barrierDismissible: true,
+                          );
+                        },
                         icon: Icon(FluentIcons.add, size: screenHeight * 0.02),
                         iconButtonMode: IconButtonMode.small,
                       ),
