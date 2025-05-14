@@ -12,79 +12,147 @@ class _WalletsScreenState extends State<WalletsScreen> {
   @override
   Widget build(BuildContext context) {
     // screen dimensions
-    // double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: screenHeight * 0.1),
-            child: const Text(
-              textAlign: TextAlign.center,
-              '\$484.00',
-              style: TextStyle(
-                fontSize: 48,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: screenHeight * 0.1),
+          child: Text(
+            textAlign: TextAlign.center,
+            '\$484.00',
+            style: TextStyle(
+              fontSize: screenHeight * 0.055,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(bottom: screenHeight * 0.05),
-            child: Text(
-              textAlign: TextAlign.center,
-              'Total Balance',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w200,
-                color: ThemeColors.walletCardColor1,
-              ),
+        ),
+        Container(
+          margin: EdgeInsets.only(bottom: screenHeight * 0.05),
+          child: Text(
+            textAlign: TextAlign.center,
+            'Total Balance',
+            style: TextStyle(
+              fontSize: screenHeight * 0.015,
+              fontWeight: FontWeight.w200,
+              color: ThemeColors.walletCardColor1,
             ),
           ),
-          Card(
-            borderRadius: BorderRadius.circular(screenHeight * 0.05),
+        ),
+        Expanded(
+          child: Card(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(screenHeight * 0.03),
+              topRight: Radius.circular(screenHeight * 0.03),
+            ),
             margin: const EdgeInsets.all(0),
             padding: const EdgeInsets.all(0),
-            backgroundColor: ThemeColors.elementBackgroundColor,
-            child: ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+            backgroundColor: Color.fromARGB(255, 40, 37, 37),
+            child: Column(
               children: [
-                ListTile(
-                  title: const Text('Side Hustle'),
-                  subtitle: const Text('\$7.00'),
-                  trailing: Icon(FluentIcons.chevron_right),
-                  leading: Icon(
-                    FluentIcons.money,
-                    color: ThemeColors.walletCardColor1,
+                Container(
+                  padding: EdgeInsets.only(
+                    top: screenHeight * 0.025,
+                    left: screenWidth * 0.035,
+                    right: screenWidth * 0.035,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        textAlign: TextAlign.left,
+                        'My Wallets',
+                        style: TextStyle(
+                          fontSize: screenHeight * 0.025,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                      IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.resolveWith((
+                            states,
+                          ) {
+                            if (states.isPressed) {
+                              return ThemeColors.primaryColor.withValues(
+                                alpha: 0.7,
+                              );
+                            }
+                            return ThemeColors.primaryColor;
+                          }),
+                          foregroundColor: WidgetStateProperty.resolveWith((
+                            states,
+                          ) {
+                            if (states.isPressed) {
+                              return Colors.black.withValues(alpha: 0.7);
+                            }
+                            return Colors.black;
+                          }),
+                          padding: WidgetStateProperty.all(EdgeInsets.all(8)),
+                          elevation: WidgetStateProperty.all(10),
+                          shadowColor: WidgetStateProperty.all(
+                            ThemeColors.gradientEdgeColor,
+                          ),
+                          shape: WidgetStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {},
+                        icon: Icon(FluentIcons.add, size: screenHeight * 0.02),
+                        iconButtonMode: IconButtonMode.small,
+                      ),
+                    ],
                   ),
                 ),
-                ListTile(
-                  title: const Text('Freelancing'),
-                  subtitle: const Text('\$50.00'),
-                  trailing: Icon(FluentIcons.chevron_right),
-                  leading: Icon(
-                    FluentIcons.money,
-                    color: ThemeColors.walletCardColor2,
+                ListView(
+                  padding: EdgeInsets.only(
+                    top: screenHeight * 0.01,
+                    left: screenWidth * 0.01,
+                    right: screenWidth * 0.01,
                   ),
-                ),
-                ListTile(
-                  title: const Text('Salary'),
-                  subtitle: const Text('\$250.00'),
-                  trailing: Icon(FluentIcons.chevron_right),
-                  leading: Icon(
-                    FluentIcons.money,
-                    color: ThemeColors.walletCardColor1,
-                  ),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    ListTile(
+                      title: const Text('Side Hustle'),
+                      subtitle: const Text('\$7.00'),
+                      trailing: Icon(FluentIcons.chevron_right),
+                      leading: Icon(
+                        FluentIcons.money,
+                        color: ThemeColors.walletCardColor1,
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('Freelancing'),
+                      subtitle: const Text('\$50.00'),
+                      trailing: Icon(FluentIcons.chevron_right),
+                      leading: Icon(
+                        FluentIcons.money,
+                        color: ThemeColors.walletCardColor2,
+                      ),
+                    ),
+                    ListTile(
+                      title: const Text('Salary'),
+                      subtitle: const Text('\$250.00'),
+                      trailing: Icon(FluentIcons.chevron_right),
+                      leading: Icon(
+                        FluentIcons.money,
+                        color: ThemeColors.walletCardColor1,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
