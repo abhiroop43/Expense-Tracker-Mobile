@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
+import 'package:flutter_expense_tracker/data/wallets.dart';
 
 class WalletsScreen extends StatefulWidget {
   const WalletsScreen({super.key});
@@ -9,6 +10,14 @@ class WalletsScreen extends StatefulWidget {
 }
 
 class _WalletsScreenState extends State<WalletsScreen> {
+  late List<Wallet> wallets = [];
+
+  @override
+  void initState() {
+    super.initState();
+    wallets = Wallets.getWallets();
+  }
+
   @override
   Widget build(BuildContext context) {
     // screen dimensions
@@ -110,7 +119,8 @@ class _WalletsScreenState extends State<WalletsScreen> {
                     ],
                   ),
                 ),
-                ListView(
+
+                ListView.builder(
                   padding: EdgeInsets.only(
                     top: screenHeight * 0.01,
                     left: screenWidth * 0.01,
@@ -118,35 +128,19 @@ class _WalletsScreenState extends State<WalletsScreen> {
                   ),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    ListTile(
-                      title: const Text('Side Hustle'),
-                      subtitle: const Text('\$7.00'),
+                  itemCount: wallets.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(wallets[index].walletName),
+                      subtitle: Text('\$${wallets[index].totalBalance}'),
                       trailing: Icon(FluentIcons.chevron_right),
-                      leading: Icon(
-                        FluentIcons.money,
-                        color: ThemeColors.walletCardColor1,
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          wallets[index].walletImage,
+                        ),
                       ),
-                    ),
-                    ListTile(
-                      title: const Text('Freelancing'),
-                      subtitle: const Text('\$50.00'),
-                      trailing: Icon(FluentIcons.chevron_right),
-                      leading: Icon(
-                        FluentIcons.money,
-                        color: ThemeColors.walletCardColor2,
-                      ),
-                    ),
-                    ListTile(
-                      title: const Text('Salary'),
-                      subtitle: const Text('\$250.00'),
-                      trailing: Icon(FluentIcons.chevron_right),
-                      leading: Icon(
-                        FluentIcons.money,
-                        color: ThemeColors.walletCardColor1,
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ],
             ),
