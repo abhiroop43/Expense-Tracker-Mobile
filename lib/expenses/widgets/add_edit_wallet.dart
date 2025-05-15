@@ -117,7 +117,17 @@ class _AddEditWalletState extends State<AddEditWallet> {
               ),
               FilledButton(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.red),
+                  backgroundColor: WidgetStateProperty.resolveWith((states) {
+                    if (states.isPressed) {
+                      return Color.fromARGB(
+                        255,
+                        255,
+                        108,
+                        108,
+                      ).withValues(alpha: 0.5);
+                    }
+                    return Color.fromARGB(255, 255, 108, 108);
+                  }),
                 ),
                 onPressed: () {
                   Wallets.deleteWallet(widget.wallet!.id);
@@ -257,15 +267,20 @@ class _AddEditWalletState extends State<AddEditWallet> {
                     ),
                     backgroundColor: WidgetStateProperty.resolveWith((states) {
                       if (states.isPressed) {
-                        return Colors.red.withValues(alpha: 0.7);
+                        return Color.fromARGB(
+                          255,
+                          255,
+                          108,
+                          108,
+                        ).withValues(alpha: 0.5);
                       }
-                      return Colors.red;
+                      return Color.fromARGB(255, 255, 108, 108);
                     }),
                     foregroundColor: WidgetStateProperty.resolveWith((states) {
                       if (states.isPressed) {
-                        return Colors.white.withValues(alpha: 0.7);
+                        return Colors.black.withValues(alpha: 0.7);
                       }
-                      return Colors.white;
+                      return Colors.black;
                     }),
                     padding: WidgetStateProperty.all(EdgeInsets.all(8)),
                     elevation: WidgetStateProperty.all(10),
@@ -281,13 +296,13 @@ class _AddEditWalletState extends State<AddEditWallet> {
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.resolveWith((states) {
                       if (states.isPressed) {
-                        return ThemeColors.primaryColor.withValues(alpha: 0.7);
+                        return ThemeColors.primaryColor.withValues(alpha: 0.5);
                       }
                       return ThemeColors.primaryColor;
                     }),
                     foregroundColor: WidgetStateProperty.resolveWith((states) {
                       if (states.isPressed) {
-                        return Colors.black.withValues(alpha: 0.7);
+                        return Colors.black.withValues(alpha: 0.5);
                       }
                       return Colors.black;
                     }),
