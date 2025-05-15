@@ -137,38 +137,40 @@ class _WalletsScreenState extends State<WalletsScreen> {
                   ),
                 ),
 
-                wallets.length > 0
-                    ? ListView.builder(
-                      padding: EdgeInsets.only(
-                        top: screenHeight * 0.01,
-                        left: screenWidth * 0.01,
-                        right: screenWidth * 0.01,
+                wallets.isNotEmpty
+                    ? Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(
+                          top: screenHeight * 0.01,
+                          left: screenWidth * 0.01,
+                          right: screenWidth * 0.01,
+                        ),
+                        shrinkWrap: true,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        itemCount: wallets.length,
+                        itemBuilder: (context, index) {
+                          var image = base64.decode(wallets[index].walletImage);
+                          return ListTile(
+                            title: Text(wallets[index].walletName),
+                            subtitle: Text('\$${wallets[index].totalBalance}'),
+                            trailing: Icon(FluentIcons.chevron_right),
+                            leading: CircleAvatar(
+                              backgroundImage: MemoryImage(image),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (context) =>
+                                        AddEditWallet(wallet: wallets[index]),
+                                barrierDismissible: true,
+                              ).then((_) {
+                                _refreshWallets();
+                              });
+                            },
+                          );
+                        },
                       ),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: wallets.length,
-                      itemBuilder: (context, index) {
-                        var image = base64.decode(wallets[index].walletImage);
-                        return ListTile(
-                          title: Text(wallets[index].walletName),
-                          subtitle: Text('\$${wallets[index].totalBalance}'),
-                          trailing: Icon(FluentIcons.chevron_right),
-                          leading: CircleAvatar(
-                            backgroundImage: MemoryImage(image),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder:
-                                  (context) =>
-                                      AddEditWallet(wallet: wallets[index]),
-                              barrierDismissible: true,
-                            ).then((_) {
-                              _refreshWallets();
-                            });
-                          },
-                        );
-                      },
                     )
                     : Container(
                       padding: EdgeInsets.only(
