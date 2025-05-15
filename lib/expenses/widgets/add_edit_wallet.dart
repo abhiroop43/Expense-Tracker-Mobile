@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
@@ -36,7 +37,7 @@ class _AddEditWalletState extends State<AddEditWallet> {
     }
   }
 
-  void _submit() {
+  void _submit() async {
     if (_walletNameController.text.isEmpty) {
       // Show error message
       return;
@@ -46,7 +47,28 @@ class _AddEditWalletState extends State<AddEditWallet> {
       return;
     }
     // Save the wallet
-    Navigator.pop(context);
+    final bytes = await _selectedIcon!.readAsBytes();
+    String base64String = base64.encode(bytes);
+    debugPrint(base64String);
+
+    Wallet newWallet = Wallet(
+      id: widget.wallet?.id ?? UniqueKey().hashCode,
+      totalBalance: 0.0,
+      income: 0.0,
+      expense: 0.0,
+      walletName: _walletNameController.text,
+      walletImage: base64String,
+    );
+
+    if (widget.wallet != null) {
+      Wallets.updateWallet(widget.wallet!.id, newWallet);
+    } else {
+      Wallets.addWallet(newWallet);
+    }
+
+    if (mounted) {
+      Navigator.pop(context);
+    }
   }
 
   void _delete() async {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/data/wallets.dart';
@@ -17,6 +19,12 @@ class _WalletsScreenState extends State<WalletsScreen> {
   void initState() {
     super.initState();
     wallets = Wallets.getWallets();
+  }
+
+  void _refreshWallets() {
+    setState(() {
+      wallets = Wallets.getWallets();
+    });
   }
 
   @override
@@ -118,7 +126,9 @@ class _WalletsScreenState extends State<WalletsScreen> {
                             context: context,
                             builder: (context) => AddEditWallet(),
                             barrierDismissible: true,
-                          );
+                          ).then((_) {
+                            _refreshWallets();
+                          });
                         },
                         icon: Icon(FluentIcons.add, size: screenHeight * 0.02),
                         iconButtonMode: IconButtonMode.small,
@@ -137,14 +147,13 @@ class _WalletsScreenState extends State<WalletsScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: wallets.length,
                   itemBuilder: (context, index) {
+                    var image = base64.decode(wallets[index].walletImage);
                     return ListTile(
                       title: Text(wallets[index].walletName),
                       subtitle: Text('\$${wallets[index].totalBalance}'),
                       trailing: Icon(FluentIcons.chevron_right),
                       leading: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          wallets[index].walletImage,
-                        ),
+                        backgroundImage: MemoryImage(image),
                       ),
                     );
                   },
