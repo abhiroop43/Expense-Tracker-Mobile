@@ -137,27 +137,55 @@ class _WalletsScreenState extends State<WalletsScreen> {
                   ),
                 ),
 
-                ListView.builder(
-                  padding: EdgeInsets.only(
-                    top: screenHeight * 0.01,
-                    left: screenWidth * 0.01,
-                    right: screenWidth * 0.01,
-                  ),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: wallets.length,
-                  itemBuilder: (context, index) {
-                    var image = base64.decode(wallets[index].walletImage);
-                    return ListTile(
-                      title: Text(wallets[index].walletName),
-                      subtitle: Text('\$${wallets[index].totalBalance}'),
-                      trailing: Icon(FluentIcons.chevron_right),
-                      leading: CircleAvatar(
-                        backgroundImage: MemoryImage(image),
+                wallets.length > 0
+                    ? ListView.builder(
+                      padding: EdgeInsets.only(
+                        top: screenHeight * 0.01,
+                        left: screenWidth * 0.01,
+                        right: screenWidth * 0.01,
                       ),
-                    );
-                  },
-                ),
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: wallets.length,
+                      itemBuilder: (context, index) {
+                        var image = base64.decode(wallets[index].walletImage);
+                        return ListTile(
+                          title: Text(wallets[index].walletName),
+                          subtitle: Text('\$${wallets[index].totalBalance}'),
+                          trailing: Icon(FluentIcons.chevron_right),
+                          leading: CircleAvatar(
+                            backgroundImage: MemoryImage(image),
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder:
+                                  (context) =>
+                                      AddEditWallet(wallet: wallets[index]),
+                              barrierDismissible: true,
+                            ).then((_) {
+                              _refreshWallets();
+                            });
+                          },
+                        );
+                      },
+                    )
+                    : Container(
+                      padding: EdgeInsets.only(
+                        top: screenHeight * 0.1,
+                        left: screenWidth * 0.01,
+                        right: screenWidth * 0.01,
+                      ),
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        'No wallets found',
+                        style: TextStyle(
+                          fontSize: screenHeight * 0.02,
+                          fontWeight: FontWeight.w200,
+                          color: ThemeColors.walletCardColor1,
+                        ),
+                      ),
+                    ),
               ],
             ),
           ),

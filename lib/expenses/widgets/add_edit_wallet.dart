@@ -5,6 +5,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/data/wallets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AddEditWallet extends StatefulWidget {
   final Wallet? wallet;
@@ -24,17 +25,46 @@ class _AddEditWalletState extends State<AddEditWallet> {
     _walletNameController = TextEditingController(
       text: widget.wallet?.walletName ?? '',
     );
+
+    // If we're editing an existing wallet, load its image
+    if (widget.wallet != null && widget.wallet!.walletImage.isNotEmpty) {
+      _loadWalletImage();
+    }
+  }
+
+  Future<void> _loadWalletImage() async {
+    try {
+      final bytes = base64.decode(widget.wallet!.walletImage);
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File("${dir.path}/${widget.wallet!.id}.png");
+      await file.writeAsBytes(bytes);
+
+      setState(() {
+        _selectedIcon = file;
+      });
+    } catch (e) {
+      debugPrint('Error loading wallet image: $e');
+    }
   }
 
   Future _pickIconFromGallery() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
+      maxWidth: 256,
+      maxHeight: 256,
+      imageQuality: 80,
     );
     if (pickedFile != null) {
       setState(() {
         _selectedIcon = File(pickedFile.path);
       });
     }
+  }
+
+  @override
+  void dispose() {
+    _walletNameController.dispose();
+    super.dispose();
   }
 
   void _submit() async {
@@ -46,16 +76,14 @@ class _AddEditWalletState extends State<AddEditWallet> {
       // Show error message
       return;
     }
-    // Save the wallet
     final bytes = await _selectedIcon!.readAsBytes();
     String base64String = base64.encode(bytes);
-    debugPrint(base64String);
 
     Wallet newWallet = Wallet(
       id: widget.wallet?.id ?? UniqueKey().hashCode,
-      totalBalance: 0.0,
-      income: 0.0,
-      expense: 0.0,
+      totalBalance: widget.wallet?.totalBalance ?? 0.0,
+      income: widget.wallet?.income ?? 0.0,
+      expense: widget.wallet?.expense ?? 0.0,
       walletName: _walletNameController.text,
       walletImage: base64String,
     );
@@ -91,7 +119,10 @@ class _AddEditWalletState extends State<AddEditWallet> {
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(Colors.red),
                 ),
-                onPressed: () => Navigator.pop(context, true),
+                onPressed: () {
+                  Wallets.deleteWallet(widget.wallet!.id);
+                  Navigator.pop(context, true);
+                },
                 child: const Text('Delete'),
               ),
             ],
