@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Flutter Expense Tracker</string>
+		<string>Expense Tracker</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -47,5 +47,11 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Access to Photo Library is required to upload wallet icons</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Access to Camera is required to scan QR codes</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Access to Microphone is required to record audio</string>
 	</dict>
 </plist>

@@ -66,6 +66,14 @@ class ProfileButtons extends StatelessWidget {
                   title: const Text('Logout'),
                   content: const Text('Are you sure you want to logout?'),
                   actions: [
+                    Button(
+                      child: const Text('Cancel'),
+                      onPressed: () {
+                        Navigator.pop(context, 'Logout dialog dismissed');
+                        // Delete file here
+                      },
+                    ),
+
                     FilledButton(
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
@@ -88,14 +96,6 @@ class ProfileButtons extends StatelessWidget {
                         }),
                       ),
                       child: const Text('Logout'),
-                    ),
-
-                    Button(
-                      child: const Text('Cancel'),
-                      onPressed: () {
-                        Navigator.pop(context, 'Logout dialog dismissed');
-                        // Delete file here
-                      },
                     ),
                   ],
                 ),

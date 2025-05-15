@@ -8,7 +8,7 @@ class WalletCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var wallets = Wallets.getWallets();
+    List<Wallet> wallets = Wallets.getWallets();
     List<Widget> walletCards = [];
 
     for (var wallet in wallets) {
@@ -22,15 +22,23 @@ class WalletCarousel extends StatelessWidget {
       );
     }
 
-    return CustomCarousel(
-      loop: true,
-      scrollSpeed: 0.4,
-      effectsBuilder:
-          (index, scrollRatio, child) => Transform.translate(
-            offset: Offset(0, scrollRatio * 30),
-            child: child,
+    return wallets.length > 0
+        ? CustomCarousel(
+          loop: true,
+          scrollSpeed: 0.4,
+          effectsBuilder:
+              (index, scrollRatio, child) => Transform.translate(
+                offset: Offset(0, scrollRatio * 30),
+                child: child,
+              ),
+          children: walletCards,
+        )
+        : Center(
+          child: Text(
+            textAlign: TextAlign.center,
+            'Please add a wallet to start tracking your expenses',
+            style: TextStyle(fontSize: 15, color: Colors.white),
           ),
-      children: walletCards,
-    );
+        );
   }
 }

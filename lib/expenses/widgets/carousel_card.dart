@@ -57,7 +57,7 @@ class CarouselCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Total balance",
+                            walletName,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: screenHeight * 0.02,
