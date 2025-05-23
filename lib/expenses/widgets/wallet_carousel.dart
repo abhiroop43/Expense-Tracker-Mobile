@@ -22,7 +22,7 @@ class WalletCarousel extends StatelessWidget {
       );
     }
 
-    return wallets.length > 0
+    return wallets.isNotEmpty
         ? CustomCarousel(
           loop: true,
           scrollSpeed: 0.4,
