@@ -28,7 +28,6 @@ class _NewItemModalState extends State<NewItemModal> {
     _expenseTypes = ExpenseType.getExpenseTypes();
     _wallets = Wallets.getWallets();
     _transactionCategories = TransactionCategory.getTransactionCategories();
-    // _selectedExpenseType = _expenseTypes.first;
     _expenseAmount = TextEditingController(text: '0.00');
     _description = TextEditingController();
   }
@@ -46,65 +45,70 @@ class _NewItemModalState extends State<NewItemModal> {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Acrylic(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: screenHeight * 0.02,
-              horizontal: screenWidth * 0.02,
-            ),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: Icon(FluentIcons.chevron_left),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.resolveWith((states) {
-                      if (states.isPressed) {
-                        return ThemeColors.gradientEdgeColor.withValues(
-                          alpha: 0.7,
-                        );
-                      }
-                      return ThemeColors.gradientEdgeColor;
-                    }),
-                    foregroundColor: WidgetStateProperty.resolveWith((states) {
-                      if (states.isPressed) {
-                        return Colors.white.withValues(alpha: 0.7);
-                      }
-                      return Colors.white;
-                    }),
-                    padding: WidgetStateProperty.all(EdgeInsets.all(15)),
-                    elevation: WidgetStateProperty.all(10),
-                    shadowColor: WidgetStateProperty.all(
-                      ThemeColors.gradientEdgeColor,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: screenHeight * 0.02,
+                horizontal: screenWidth * 0.02,
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(FluentIcons.chevron_left),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.isPressed) {
+                          return ThemeColors.gradientEdgeColor.withValues(
+                            alpha: 0.7,
+                          );
+                        }
+                        return ThemeColors.gradientEdgeColor;
+                      }),
+                      foregroundColor: WidgetStateProperty.resolveWith((
+                        states,
+                      ) {
+                        if (states.isPressed) {
+                          return Colors.white.withValues(alpha: 0.7);
+                        }
+                        return Colors.white;
+                      }),
+                      padding: WidgetStateProperty.all(EdgeInsets.all(15)),
+                      elevation: WidgetStateProperty.all(10),
+                      shadowColor: WidgetStateProperty.all(
+                        ThemeColors.gradientEdgeColor,
+                      ),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
                     ),
-                    shape: WidgetStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+
+                  Expanded(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "Add New Transaction",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-
-                Expanded(
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    "Add New Transaction",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          Form(
-            child: Expanded(
+            Form(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -209,11 +213,219 @@ class _NewItemModalState extends State<NewItemModal> {
                       },
                     ),
                   ),
+
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.1,
+                      right: screenWidth * 0.1,
+                      top: screenHeight * 0.02,
+                      bottom: screenHeight * 0.02,
+                    ),
+                    // width: screenWidth * 0.8,
+                    child: DatePicker(
+                      header: 'Transaction Date',
+                      selected: _expenseDate,
+                      onChanged: (time) {
+                        setState(() => _expenseDate = time);
+                        debugPrint('Selected date: ${_expenseDate?.toLocal()}');
+                      },
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.06,
+                      right: screenWidth * 0.06,
+                      top: screenHeight * 0.02,
+                      bottom: screenHeight * 0.02,
+                    ),
+                    width: screenWidth * 0.8,
+                    child: TextFormBox(
+                      controller: _expenseAmount,
+                      placeholder: 'Amount',
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an amount';
+                        }
+                        final double? amount = double.tryParse(value);
+                        if (amount == null || amount <= 0) {
+                          return 'Please enter a valid amount';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.06,
+                      right: screenWidth * 0.06,
+                      top: screenHeight * 0.02,
+                      bottom: screenHeight * 0.02,
+                    ),
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.1,
+                    child: TextFormBox(
+                      scrollPadding: EdgeInsets.only(
+                        bottom: screenHeight * 0.2,
+                      ),
+                      controller: _description,
+                      placeholder: 'Description',
+                      expands: true,
+                      minLines: null,
+                      maxLines: null,
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.06,
+                      right: screenWidth * 0.06,
+                      top: screenHeight * 0.02,
+                      bottom: screenHeight * 0.02,
+                    ),
+                    width: screenWidth * 0.8,
+                    child: Button(
+                      child: const Text('↥ Upload Receipt'),
+                      onPressed: () {
+                        // select file from device
+
+                        // upload file to server
+
+                        setState(() {
+                          _receiptImage =
+                              '${DateTime.timestamp().millisecondsSinceEpoch}.jpeg';
+                        });
+                        debugPrint('Receipt uploaded: $_receiptImage');
+                      },
+                    ),
+                  ),
+
+                  // show uploaded receipt file name
+                  if (_receiptImage != null)
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: screenWidth * 0.11,
+                        right: screenWidth * 0.11,
+                        top: screenHeight * 0.02,
+                        bottom: screenHeight * 0.02,
+                      ),
+                      width: screenWidth * 0.7,
+                      child: Center(
+                        child: Text(
+                          'Uploaded Receipt: $_receiptImage',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: screenWidth * 0.11,
+                      right: screenWidth * 0.11,
+                      top: screenHeight * 0.02,
+                      bottom: screenHeight * 0.02,
+                    ),
+                    width: screenWidth * 0.7,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            debugPrint('Delete button pressed');
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            FluentIcons.recycle_bin,
+                            size: screenWidth * 0.07,
+                          ),
+                          style: ButtonStyle(
+                            shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                            ),
+                            backgroundColor: WidgetStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.isPressed) {
+                                return Color.fromARGB(
+                                  255,
+                                  255,
+                                  108,
+                                  108,
+                                ).withValues(alpha: 0.5);
+                              }
+                              return Color.fromARGB(255, 255, 108, 108);
+                            }),
+                            foregroundColor: WidgetStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.isPressed) {
+                                return Colors.black.withValues(alpha: 0.7);
+                              }
+                              return Colors.black;
+                            }),
+                            padding: WidgetStateProperty.all(EdgeInsets.all(8)),
+                            elevation: WidgetStateProperty.all(10),
+                            shadowColor: WidgetStateProperty.all(
+                              ThemeColors.gradientEdgeColor,
+                            ),
+                          ),
+                        ),
+
+                        Button(
+                          onPressed: () {
+                            debugPrint('Save button pressed');
+                            Navigator.pop(context);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.isPressed) {
+                                return ThemeColors.primaryColor.withValues(
+                                  alpha: 0.5,
+                                );
+                              }
+                              return ThemeColors.primaryColor;
+                            }),
+                            foregroundColor: WidgetStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.isPressed) {
+                                return Colors.black.withValues(alpha: 0.5);
+                              }
+                              return Colors.black;
+                            }),
+                            padding: WidgetStateProperty.all(
+                              EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.22,
+                                vertical: 10,
+                              ),
+                            ),
+                            elevation: WidgetStateProperty.all(10),
+                            shadowColor: WidgetStateProperty.all(
+                              ThemeColors.gradientEdgeColor,
+                            ),
+                          ),
+                          child: Text(
+                            "Save",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: screenWidth * 0.04,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
