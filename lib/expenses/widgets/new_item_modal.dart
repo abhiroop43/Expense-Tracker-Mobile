@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/data/master_data.dart';
 import 'package:flutter_expense_tracker/data/wallets.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/image_input.dart';
 
 class NewItemModal extends StatefulWidget {
   const NewItemModal({super.key});
@@ -278,29 +279,30 @@ class _NewItemModalState extends State<NewItemModal> {
                     ),
                   ),
 
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.06,
-                      right: screenWidth * 0.06,
-                      top: screenHeight * 0.02,
-                      bottom: screenHeight * 0.02,
-                    ),
-                    width: screenWidth * 0.8,
-                    child: Button(
-                      child: const Text('↥ Upload Receipt'),
-                      onPressed: () {
-                        // select file from device
+                  // Container(
+                  //   margin: EdgeInsets.only(
+                  //     left: screenWidth * 0.06,
+                  //     right: screenWidth * 0.06,
+                  //     top: screenHeight * 0.02,
+                  //     bottom: screenHeight * 0.02,
+                  //   ),
+                  //   width: screenWidth * 0.8,
+                  //   child: Button(
+                  //     child: const Text('↥ Upload Receipt'),
+                  //     onPressed: () {
+                  //       // select file from device
 
-                        // upload file to server
+                  //       // upload file to server
 
-                        setState(() {
-                          _receiptImage =
-                              '${DateTime.timestamp().millisecondsSinceEpoch}.jpeg';
-                        });
-                        debugPrint('Receipt uploaded: $_receiptImage');
-                      },
-                    ),
-                  ),
+                  //       setState(() {
+                  //         _receiptImage =
+                  //             '${DateTime.timestamp().millisecondsSinceEpoch}.jpeg';
+                  //       });
+                  //       debugPrint('Receipt uploaded: $_receiptImage');
+                  //     },
+                  //   ),
+                  // ),
+                  ImageInput(),
 
                   // show uploaded receipt file name
                   if (_receiptImage != null)
