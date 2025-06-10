@@ -48,7 +48,7 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Access to Photo Library is required to upload wallet icons</string>
+		<string>Access to Photo Library is required to upload wallet icons and receipts</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Access to Camera is required to scan QR codes</string>
 		<key>NSMicrophoneUsageDescription</key>
