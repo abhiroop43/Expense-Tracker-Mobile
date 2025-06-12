@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/data/master_data.dart';
 import 'package:flutter_expense_tracker/data/wallets.dart';
+import 'package:flutter_expense_tracker/expenses/widgets/image_input.dart';
 
 class NewItemModal extends StatefulWidget {
   const NewItemModal({super.key});
@@ -94,13 +95,14 @@ class _NewItemModalState extends State<NewItemModal> {
                   ),
 
                   Expanded(
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      "Add New Transaction",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
+                    child: Center(
+                      child: Text(
+                        "Add New Transaction",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.055,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -113,221 +115,171 @@ class _NewItemModalState extends State<NewItemModal> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.02,
-                      vertical: screenHeight * 0.02,
-                    ),
-                    child: ComboBox<ExpenseType>(
-                      placeholder: const Text('Transaction Type'),
-                      value: _selectedExpenseType,
-                      items:
-                          _expenseTypes.map<ComboBoxItem<ExpenseType>>((
-                            expenseType,
-                          ) {
-                            return ComboBoxItem<ExpenseType>(
-                              value: expenseType,
-                              child: SizedBox(
-                                width: screenWidth * 0.78,
-                                child: Text(
-                                  expenseType.description,
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                      onChanged: (exp) {
-                        setState(() {
-                          _selectedExpenseType = exp;
-                          debugPrint(
-                            'Selected Expense Type: ${_selectedExpenseType?.description}',
-                          );
-                        });
-                      },
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.02,
-                      vertical: screenHeight * 0.02,
-                    ),
-                    child: ComboBox<Wallet>(
-                      placeholder: const Text('Wallet'),
-                      value: _selectedWallet,
-                      items:
-                          _wallets.map<ComboBoxItem<Wallet>>((wallet) {
-                            return ComboBoxItem<Wallet>(
-                              value: wallet,
-                              child: SizedBox(
-                                width: screenWidth * 0.78,
-                                child: Text(
-                                  '${wallet.walletName} (\$${wallet.totalBalance})',
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                      onChanged: (w) {
-                        setState(() {
-                          _selectedWallet = w;
-                          debugPrint(
-                            'Selected Wallet: ${_selectedWallet?.walletName}',
-                          );
-                        });
-                      },
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: screenWidth * 0.02,
-                      vertical: screenHeight * 0.02,
-                    ),
-                    child: ComboBox<TransactionCategory>(
-                      placeholder: const Text('Transaction Category'),
-                      value: _selectedTransactionCategory,
-                      items:
-                          _transactionCategories
-                              .map<ComboBoxItem<TransactionCategory>>((
-                                category,
-                              ) {
-                                return ComboBoxItem<TransactionCategory>(
-                                  value: category,
-                                  child: SizedBox(
-                                    width: screenWidth * 0.78,
-                                    child: Text(
-                                      category.description,
-                                      textAlign: TextAlign.justify,
-                                    ),
+                    margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    child: Center(
+                      child: ComboBox<ExpenseType>(
+                        placeholder: const Text('Transaction Type'),
+                        value: _selectedExpenseType,
+                        items:
+                            _expenseTypes.map<ComboBoxItem<ExpenseType>>((
+                              expenseType,
+                            ) {
+                              return ComboBoxItem<ExpenseType>(
+                                value: expenseType,
+                                child: SizedBox(
+                                  width: screenWidth * 0.78,
+                                  child: Text(
+                                    expenseType.description,
+                                    textAlign: TextAlign.justify,
                                   ),
-                                );
-                              })
-                              .toList(),
-                      onChanged: (cat) {
-                        setState(() {
-                          _selectedTransactionCategory = cat;
+                                ),
+                              );
+                            }).toList(),
+                        onChanged: (exp) {
+                          setState(() {
+                            _selectedExpenseType = exp;
+                            debugPrint(
+                              'Selected Expense Type: ${_selectedExpenseType?.description}',
+                            );
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    child: Center(
+                      child: ComboBox<Wallet>(
+                        placeholder: const Text('Wallet'),
+                        value: _selectedWallet,
+                        items:
+                            _wallets.map<ComboBoxItem<Wallet>>((wallet) {
+                              return ComboBoxItem<Wallet>(
+                                value: wallet,
+                                child: SizedBox(
+                                  width: screenWidth * 0.78,
+                                  child: Text(
+                                    '${wallet.walletName} (\$${wallet.totalBalance})',
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                        onChanged: (w) {
+                          setState(() {
+                            _selectedWallet = w;
+                            debugPrint(
+                              'Selected Wallet: ${_selectedWallet?.walletName}',
+                            );
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    child: Center(
+                      child: ComboBox<TransactionCategory>(
+                        placeholder: const Text('Transaction Category'),
+                        value: _selectedTransactionCategory,
+                        items:
+                            _transactionCategories
+                                .map<ComboBoxItem<TransactionCategory>>((
+                                  category,
+                                ) {
+                                  return ComboBoxItem<TransactionCategory>(
+                                    value: category,
+                                    child: SizedBox(
+                                      width: screenWidth * 0.78,
+                                      child: Text(
+                                        category.description,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ),
+                                  );
+                                })
+                                .toList(),
+                        onChanged: (cat) {
+                          setState(() {
+                            _selectedTransactionCategory = cat;
+                            debugPrint(
+                              'Selected category: ${_selectedTransactionCategory?.description}',
+                            );
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                    child: Center(
+                      child: DatePicker(
+                        header: 'Transaction Date',
+                        selected: _expenseDate,
+                        onChanged: (time) {
+                          setState(() => _expenseDate = time);
                           debugPrint(
-                            'Selected category: ${_selectedTransactionCategory?.description}',
+                            'Selected date: ${_expenseDate?.toLocal()}',
                           );
-                        });
-                      },
+                        },
+                      ),
                     ),
                   ),
 
                   Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.1,
-                      right: screenWidth * 0.1,
-                      top: screenHeight * 0.02,
-                      bottom: screenHeight * 0.02,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.06,
+                      vertical: screenHeight * 0.02,
                     ),
-                    // width: screenWidth * 0.8,
-                    child: DatePicker(
-                      header: 'Transaction Date',
-                      selected: _expenseDate,
-                      onChanged: (time) {
-                        setState(() => _expenseDate = time);
-                        debugPrint('Selected date: ${_expenseDate?.toLocal()}');
-                      },
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.06,
-                      right: screenWidth * 0.06,
-                      top: screenHeight * 0.02,
-                      bottom: screenHeight * 0.02,
-                    ),
-                    width: screenWidth * 0.8,
-                    child: TextFormBox(
-                      controller: _expenseAmount,
-                      placeholder: 'Amount',
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter an amount';
-                        }
-                        final double? amount = double.tryParse(value);
-                        if (amount == null || amount <= 0) {
-                          return 'Please enter a valid amount';
-                        }
-                        return null;
-                      },
+                    child: Center(
+                      child: TextFormBox(
+                        controller: _expenseAmount,
+                        placeholder: 'Amount',
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter an amount';
+                          }
+                          final double? amount = double.tryParse(value);
+                          if (amount == null || amount <= 0) {
+                            return 'Please enter a valid amount';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
 
                   Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.06,
-                      right: screenWidth * 0.06,
-                      top: screenHeight * 0.02,
-                      bottom: screenHeight * 0.02,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.06,
+                      vertical: screenHeight * 0.02,
                     ),
-                    width: screenWidth * 0.8,
                     height: screenHeight * 0.1,
-                    child: TextFormBox(
-                      scrollPadding: EdgeInsets.only(
-                        bottom: screenHeight * 0.2,
-                      ),
-                      controller: _description,
-                      placeholder: 'Description',
-                      expands: true,
-                      minLines: null,
-                      maxLines: null,
-                    ),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.06,
-                      right: screenWidth * 0.06,
-                      top: screenHeight * 0.02,
-                      bottom: screenHeight * 0.02,
-                    ),
-                    width: screenWidth * 0.8,
-                    child: Button(
-                      child: const Text('↥ Upload Receipt'),
-                      onPressed: () {
-                        // select file from device
-
-                        // upload file to server
-
-                        setState(() {
-                          _receiptImage =
-                              '${DateTime.timestamp().millisecondsSinceEpoch}.jpeg';
-                        });
-                        debugPrint('Receipt uploaded: $_receiptImage');
-                      },
-                    ),
-                  ),
-
-                  // show uploaded receipt file name
-                  if (_receiptImage != null)
-                    Container(
-                      margin: EdgeInsets.only(
-                        left: screenWidth * 0.11,
-                        right: screenWidth * 0.11,
-                        top: screenHeight * 0.02,
-                        bottom: screenHeight * 0.02,
-                      ),
-                      width: screenWidth * 0.7,
-                      child: Center(
-                        child: Text(
-                          'Uploaded Receipt: $_receiptImage',
-                          style: TextStyle(color: Colors.white),
+                    child: Center(
+                      child: TextFormBox(
+                        scrollPadding: EdgeInsets.only(
+                          bottom: screenHeight * 0.2,
                         ),
+                        controller: _description,
+                        placeholder: 'Description',
+                        expands: true,
+                        minLines: null,
+                        maxLines: null,
                       ),
                     ),
+                  ),
+
+                  ImageInput(),
 
                   Container(
-                    margin: EdgeInsets.only(
-                      left: screenWidth * 0.11,
-                      right: screenWidth * 0.11,
-                      top: screenHeight * 0.02,
-                      bottom: screenHeight * 0.02,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.11,
+                      vertical: screenHeight * 0.02,
                     ),
-                    width: screenWidth * 0.7,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
