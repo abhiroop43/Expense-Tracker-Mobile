@@ -10,6 +10,6 @@ class TrendsScreen extends StatefulWidget {
 class _TrendsScreenState extends State<TrendsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("This is the trends screen"));
+    return SingleChildScrollView();
   }
 }
