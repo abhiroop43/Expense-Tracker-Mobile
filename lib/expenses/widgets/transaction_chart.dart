@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
+import "package:collection/collection.dart";
+import 'package:flutter_expense_tracker/data/recent_transactions.dart';
 
 class TransactionChart extends StatefulWidget {
   TransactionChart({super.key});
@@ -18,40 +22,104 @@ class _TransactionChartState extends State<TransactionChart> {
 
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
+  List<String> bottomChartTitles = ['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+  List<String> bottomYearTitles = [];
 
   int touchedGroupIndex = -1;
-  late bool weeklyChecked;
-  late bool monthlyChecked;
-  late bool yearlyChecked;
+  bool weeklyChecked = true;
+  bool monthlyChecked = false;
+  bool yearlyChecked = false;
+  double maxIncome = 0.0;
+  double maxExpense = 0.0;
+
+  double barMaxHeight = 0.0;
+
+  int count = 7;
+  int transactionYears = 0;
 
   @override
   void initState() {
     super.initState();
-    final barGroup1 = makeGroupData(0, 5, 12);
-    final barGroup2 = makeGroupData(1, 16, 12);
-    final barGroup3 = makeGroupData(2, 18, 5);
-    final barGroup4 = makeGroupData(3, 20, 16);
-    final barGroup5 = makeGroupData(4, 17, 6);
-    final barGroup6 = makeGroupData(5, 19, 1.5);
-    final barGroup7 = makeGroupData(6, 10, 1.5);
 
-    final items = [
-      barGroup1,
-      barGroup2,
-      barGroup3,
-      barGroup4,
-      barGroup5,
-      barGroup6,
-      barGroup7,
-    ];
-
-    rawBarGroups = items;
-
-    showingBarGroups = rawBarGroups;
+    _setBarChartData();
 
     weeklyChecked = true;
     monthlyChecked = false;
     yearlyChecked = false;
+  }
+
+  void _setBarChartData() {
+    var transactions = RecentTransactions().getRecentTransactions();
+
+    if (transactions.isEmpty) {
+      return;
+    }
+
+    transactionYears = 0; // reset transaction years count
+    groupBy(
+      transactions,
+      (Transaction trn) => trn.transactionDate.year,
+    ).forEach((key, value) {
+      bottomYearTitles.add(key.toString());
+      transactionYears++;
+    });
+
+    List<BarChartGroupData> items = [];
+
+    if (weeklyChecked) {
+      bottomChartTitles = ['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+
+      var weeklyTransactions = groupBy(
+        transactions,
+        (Transaction trn) => trn.transactionDate.weekday,
+      );
+
+      for (int i = 1; i <= count; i++) {
+        double income =
+            weeklyTransactions[i]
+                ?.where((trn) => trn.transactionType == 'Income')
+                .fold(0.0, (sum, trn) => sum! + trn.amount) ??
+            0.0;
+        double expense =
+            weeklyTransactions[i]
+                ?.where((trn) => trn.transactionType == 'Expense')
+                .fold(0.0, (sum, trn) => sum! + trn.amount) ??
+            0.0;
+
+        if (income > maxIncome) {
+          maxIncome = income;
+        }
+        if (expense > maxExpense) {
+          maxExpense = expense;
+        }
+
+        items.add(makeGroupData(i - 1, income, expense));
+      }
+    } else if (monthlyChecked) {
+      bottomChartTitles = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+    } else {
+      bottomChartTitles = bottomYearTitles;
+    }
+
+    barMaxHeight = max(maxIncome, maxExpense) * 1.2;
+
+    rawBarGroups = items;
+    showingBarGroups = rawBarGroups;
+    debugPrint("Transaction years: $transactionYears");
+    debugPrint('Setting data....');
   }
 
   @override
@@ -75,6 +143,8 @@ class _TransactionChartState extends State<TransactionChart> {
                           weeklyChecked = true;
                           monthlyChecked = false;
                           yearlyChecked = false;
+                          count = 7;
+                          _setBarChartData();
                         }),
                     child: const Text('Weekly'),
                   ),
@@ -87,6 +157,8 @@ class _TransactionChartState extends State<TransactionChart> {
                           weeklyChecked = false;
                           monthlyChecked = true;
                           yearlyChecked = false;
+                          count = 12;
+                          _setBarChartData();
                         }),
                     child: const Text('Monthly'),
                   ),
@@ -99,6 +171,8 @@ class _TransactionChartState extends State<TransactionChart> {
                           weeklyChecked = false;
                           monthlyChecked = false;
                           yearlyChecked = true;
+                          count = transactionYears;
+                          _setBarChartData();
                         }),
                     child: const Text('Yearly'),
                   ),
@@ -109,7 +183,7 @@ class _TransactionChartState extends State<TransactionChart> {
             Expanded(
               child: BarChart(
                 BarChartData(
-                  maxY: 20,
+                  maxY: barMaxHeight,
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
                       getTooltipColor: ((group) {
@@ -208,11 +282,17 @@ class _TransactionChartState extends State<TransactionChart> {
     );
     String text;
     if (value == 0) {
-      text = '1K';
-    } else if (value == 10) {
-      text = '5K';
-    } else if (value == 19) {
-      text = '10K';
+      text = '0';
+    } else if (value == barMaxHeight / 2) {
+      text =
+          barMaxHeight < 1000
+              ? (barMaxHeight / 2).toStringAsFixed(0)
+              : '${(barMaxHeight / 2 / 1000).toStringAsFixed(1)}K';
+    } else if (value == barMaxHeight) {
+      text =
+          barMaxHeight < 1000
+              ? barMaxHeight.toStringAsFixed(0)
+              : '${(barMaxHeight / 1000).toStringAsFixed(0)}K';
     } else {
       return Container();
     }
@@ -224,7 +304,7 @@ class _TransactionChartState extends State<TransactionChart> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+    final titles = bottomChartTitles;
 
     final Widget text = Text(
       titles[value.toInt()],
@@ -249,45 +329,6 @@ class _TransactionChartState extends State<TransactionChart> {
       barRods: [
         BarChartRodData(toY: y1, color: widget.leftBarColor, width: width),
         BarChartRodData(toY: y2, color: widget.rightBarColor, width: width),
-      ],
-    );
-  }
-
-  Widget makeTransactionsIcon() {
-    const width = 4.5;
-    const space = 3.5;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withValues(alpha: 0.4),
-        ),
-        const SizedBox(width: space),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withValues(alpha: 0.8),
-        ),
-        const SizedBox(width: space),
-        Container(
-          width: width,
-          height: 42,
-          color: Colors.white.withValues(alpha: 1),
-        ),
-        const SizedBox(width: space),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withValues(alpha: 0.8),
-        ),
-        const SizedBox(width: space),
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withValues(alpha: 0.4),
-        ),
       ],
     );
   }
