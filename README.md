@@ -14,6 +14,7 @@ your rent ☕, this app has got you covered.
 Follow these steps to get the project up and running on your local machine:
 
 1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/your-username/flutter_expense_tracker.git
    cd flutter_expense_tracker
@@ -22,13 +23,14 @@ Follow these steps to get the project up and running on your local machine:
 2. **Install Dependencies**:
    Make sure you have Flutter installed. If not, follow
    the [Flutter installation guide](https://docs.flutter.dev/get-started/install). Then, run:
+
    ```bash
    flutter pub get
    ```
 
 3. **Run the App**:
    Connect a device or start an emulator, then execute
-    ```bash
+   ```bash
    flutter run
    ```
 
@@ -57,6 +59,18 @@ for tutorials, samples, and guidance. It's like having a mentor, but without the
 - **Save Smarter**: Turn those pennies into dollars. Or at least try. 🪙➡️💵
 
 ---
+
+## 📷 Screenshots
+
+![Start Screen](./screenshots/start.png)
+![Sign Up](./screenshots/registration.png)
+![Login](./screenshots/login.png)
+![Home](./screenshots/home.png)
+![Add Expense](./screenshots/new_transaction.png)
+![Statistics](./screenshots/statistics.png)
+![Wallets](./screenshots/wallets.png)
+![Add or Edit Wallet](./screenshots/add_edit_wallet.png)
+![Profile](./screenshots/profile.png)
 
 ## 🧑‍💻 Contributing
 
