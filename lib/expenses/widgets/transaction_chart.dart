@@ -56,18 +56,14 @@ class _TransactionChartState extends State<TransactionChart> {
     }
 
     transactionYears = 0; // reset transaction years count
-    groupBy(
-      transactions,
-      (Transaction trn) => trn.transactionDate.year,
-    ).forEach((key, value) {
-      bottomYearTitles.add(key.toString());
-      transactionYears++;
-    });
+    maxIncome = 0.0; // reset max. income
+    maxExpense = 0.0; // reset max. expense
 
     List<BarChartGroupData> items = [];
 
     if (weeklyChecked) {
       bottomChartTitles = ['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
+      count = 7;
 
       var weeklyTransactions = groupBy(
         transactions,
@@ -110,11 +106,77 @@ class _TransactionChartState extends State<TransactionChart> {
         'Nov',
         'Dec',
       ];
+      count = 12;
+
+      var monthlyTransactions = groupBy(
+        transactions,
+        (Transaction trn) => trn.transactionDate.month,
+      );
+
+      for (int i = 1; i <= count; i++) {
+        double income =
+            monthlyTransactions[i]
+                ?.where((trn) => trn.transactionType == 'Income')
+                .fold(0.0, (sum, trn) => sum! + trn.amount) ??
+            0.0;
+
+        double expense =
+            monthlyTransactions[i]
+                ?.where((trn) => trn.transactionType == 'Expense')
+                .fold(0.0, (sum, trn) => sum! + trn.amount) ??
+            0.0;
+
+        if (income > maxIncome) {
+          maxIncome = income;
+        }
+        if (expense > maxExpense) {
+          maxExpense = expense;
+        }
+
+        items.add(makeGroupData(i - 1, income, expense));
+      }
     } else {
+      // yearly checked
+      groupBy(
+        transactions,
+        (Transaction trn) => trn.transactionDate.year,
+      ).forEach((key, value) {
+        bottomYearTitles.add(key.toString());
+        transactionYears++;
+      });
+
       bottomChartTitles = bottomYearTitles;
+      count = transactionYears;
+
+      var yearlyTransactions = groupBy(
+        transactions,
+        (Transaction trn) => trn.transactionDate.year,
+      );
+
+      for (int i = 1; i <= count; i++) {
+        double income =
+            yearlyTransactions[int.parse(bottomYearTitles[i - 1])]
+                ?.where((trn) => trn.transactionType == 'Income')
+                .fold(0.0, (sum, trn) => sum! + trn.amount) ??
+            0.0;
+        double expense =
+            yearlyTransactions[int.parse(bottomYearTitles[i - 1])]
+                ?.where((trn) => trn.transactionType == 'Expense')
+                .fold(0.0, (sum, trn) => sum! + trn.amount) ??
+            0.0;
+
+        if (income > maxIncome) {
+          maxIncome = income;
+        }
+        if (expense > maxExpense) {
+          maxExpense = expense;
+        }
+
+        items.add(makeGroupData(i - 1, income, expense));
+      }
     }
 
-    barMaxHeight = max(maxIncome, maxExpense) * 1.2;
+    barMaxHeight = max(maxIncome, maxExpense);
 
     rawBarGroups = items;
     showingBarGroups = rawBarGroups;
@@ -143,7 +205,6 @@ class _TransactionChartState extends State<TransactionChart> {
                           weeklyChecked = true;
                           monthlyChecked = false;
                           yearlyChecked = false;
-                          count = 7;
                           _setBarChartData();
                         }),
                     child: const Text('Weekly'),
@@ -157,7 +218,6 @@ class _TransactionChartState extends State<TransactionChart> {
                           weeklyChecked = false;
                           monthlyChecked = true;
                           yearlyChecked = false;
-                          count = 12;
                           _setBarChartData();
                         }),
                     child: const Text('Monthly'),
@@ -171,7 +231,6 @@ class _TransactionChartState extends State<TransactionChart> {
                           weeklyChecked = false;
                           monthlyChecked = false;
                           yearlyChecked = true;
-                          count = transactionYears;
                           _setBarChartData();
                         }),
                     child: const Text('Yearly'),
@@ -287,7 +346,7 @@ class _TransactionChartState extends State<TransactionChart> {
       text =
           barMaxHeight < 1000
               ? (barMaxHeight / 2).toStringAsFixed(0)
-              : '${(barMaxHeight / 2 / 1000).toStringAsFixed(1)}K';
+              : '${(barMaxHeight / 2 / 1000).toStringAsFixed(0)}K';
     } else if (value == barMaxHeight) {
       text =
           barMaxHeight < 1000
