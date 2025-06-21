@@ -21,7 +21,7 @@ class _TransactionsListState extends State<TransactionsList> {
 
   @override
   Widget build(BuildContext context) {
-    var transactions = RecentTransactions.getRecentTransactions();
+    var transactions = RecentTransactions().getRecentTransactions();
     return ListView.separated(
       controller: _scrollController,
       padding: const EdgeInsets.all(8),

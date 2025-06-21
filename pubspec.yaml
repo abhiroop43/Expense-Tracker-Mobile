@@ -42,6 +42,8 @@ dependencies:
   flutter_screenutil: ^5.9.3
   image_picker: ^1.1.2
   path_provider: ^2.1.5
+  fl_chart: ^1.0.0
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

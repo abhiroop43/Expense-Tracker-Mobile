@@ -21,7 +21,6 @@ class _NewItemModalState extends State<NewItemModal> {
   DateTime? _expenseDate;
   late TextEditingController _expenseAmount;
   late TextEditingController _description;
-  String? _receiptImage;
 
   @override
   void initState() {
