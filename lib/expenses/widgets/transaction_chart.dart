@@ -180,8 +180,6 @@ class _TransactionChartState extends State<TransactionChart> {
 
     rawBarGroups = items;
     showingBarGroups = rawBarGroups;
-    debugPrint("Transaction years: $transactionYears");
-    debugPrint('Setting data....');
   }
 
   @override

@@ -75,14 +75,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-    // var pixelRatio = MediaQuery.of(context).devicePixelRatio;
-    // double transactionListHeight = _getTransactionListHeight(screenHeight);
+
     double gap = screenHeight * 0.04;
     double carouselHeight = screenHeight * 0.22;
-
-    debugPrint("devicePixelRatio: ${MediaQuery.of(context).devicePixelRatio}");
-    debugPrint("Height: ${MediaQuery.of(context).size.height}");
-    debugPrint("Width: ${MediaQuery.of(context).size.width}");
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
