@@ -30,6 +30,7 @@ Follow these steps to get the project up and running on your local machine:
 
 3. **Run the App**:
    Connect a device or start an emulator, then execute
+
    ```bash
    flutter run
    ```
@@ -62,15 +63,52 @@ for tutorials, samples, and guidance. It's like having a mentor, but without the
 
 ## 📷 Screenshots
 
+- ### Start Screen
+
 ![Start Screen](./screenshots/start.png)
+
+- ### Sign Up
+
 ![Sign Up](./screenshots/registration.png)
+
+- ### Login
+
 ![Login](./screenshots/login.png)
+
+- ### Home Screen
+
 ![Home](./screenshots/home.png)
+
+- ### Add Expense Form
+
 ![Add Expense](./screenshots/new_transaction.png)
+
+- ### Statistics Screen
+
 ![Statistics](./screenshots/statistics.png)
+
+- ### Wallets List
+
 ![Wallets](./screenshots/wallets.png)
+
+- ### Add Wallet Form
+
 ![Add or Edit Wallet](./screenshots/add_edit_wallet.png)
+
+- ### User Profile Screen
+
 ![Profile](./screenshots/profile.png)
+
+---
+
+## 🗓️ Roadmap
+
+Here's what we plan to add next (because who doesn't love a good to-do list?):
+
+- [ ] Implement the backend (because we need a place to store all those
+      "I spent how much on coffee?" moments) ☕💾
+- [ ] Add notifications for expenses (because we all need a nudge sometimes) 📅
+- [ ] Implement light mode (because dark mode isn't for everyone) 🌞
 
 ## 🧑‍💻 Contributing
 
