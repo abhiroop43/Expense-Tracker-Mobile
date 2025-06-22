@@ -4,7 +4,8 @@ import 'package:flutter_expense_tracker/data/recent_transactions.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/transaction_item.dart';
 
 class TransactionsList extends StatefulWidget {
-  const TransactionsList({super.key});
+  final String searchString;
+  const TransactionsList({super.key, this.searchString = ""});
 
   @override
   State<TransactionsList> createState() => _TransactionsListState();
@@ -21,7 +22,9 @@ class _TransactionsListState extends State<TransactionsList> {
 
   @override
   Widget build(BuildContext context) {
-    var transactions = RecentTransactions().getRecentTransactions();
+    var transactions = RecentTransactions().searchTransactions(
+      widget.searchString,
+    );
     return ListView.separated(
       controller: _scrollController,
       padding: const EdgeInsets.all(8),
