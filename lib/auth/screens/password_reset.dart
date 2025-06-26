@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/auth/widgets/text_box_with_icon.dart';
 import 'package:flutter_expense_tracker/common/extensions.dart';
+import 'package:lottie/lottie.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   const PasswordResetScreen({super.key});
@@ -100,22 +101,27 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Let's get\nback online",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                  ],
+                Lottie.asset(
+                  'assets/animations/forgot_password.json',
+                  height: 200,
+                  fit: BoxFit.scaleDown,
                 ),
 
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text(
+                //       "Let's get\nback online",
+                //       style: TextStyle(
+                //         fontSize: 30,
+                //         fontWeight: FontWeight.w900,
+                //       ),
+                //     ),
+                //     SizedBox(width: 10),
+                //   ],
+                // ),
                 SizedBox(height: 30),
                 Text("Enter your email to reset your password"),
                 SizedBox(height: 10),
