@@ -74,18 +74,12 @@ class StartScreen extends StatelessWidget {
                   const Text(
                     "Always take control of your finances",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
-                    ),
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900),
                   ),
                   SizedBox(height: 20),
                   const Text(
                     "Finances must be arranged to set a better lifestyle in future",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w100,
-                    ),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w100),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 15),
