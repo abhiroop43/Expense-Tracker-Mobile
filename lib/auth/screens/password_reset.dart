@@ -73,91 +73,96 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldPage(
-      header: Container(
-        margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              icon: const Icon(FluentIcons.chevron_left_med, size: 18.0),
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Color(0xFF515151)),
-                shape: WidgetStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+    return SafeArea(
+      child: ScaffoldPage(
+        header: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: const Icon(FluentIcons.chevron_left_med, size: 18.0),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Color(0xFF515151)),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
+                onPressed: () => Navigator.of(context).pop(),
               ),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      content: Container(
-        margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Let's get\nback online",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
-                  ),
-                  SizedBox(width: 10),
-                ],
-              ),
-
-              SizedBox(height: 30),
-              Text("Enter your email to reset your password"),
-              SizedBox(height: 10),
-
-              TextBoxWithIcon(
-                formKey: _formKey,
-                textEditingController: _emailController,
-                placeholder: 'john.doe@example.com',
-                icon: FluentIcons.accounts,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'An email id is required';
-                  }
-
-                  if (!value.isValidEmail()) {
-                    return 'A valid email id is required';
-                  }
-                  return null;
-                },
-              ),
-
-              SizedBox(height: 15),
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  FilledButton(
-                    onPressed: _submitForm,
-                    style: ButtonStyle(
-                      padding: WidgetStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 12, horizontal: 0),
-                      ),
-                    ),
-                    child: Text(
-                      "Reset Password",
+        content: Container(
+          margin: EdgeInsets.fromLTRB(20, 25, 20, 0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Let's get\nback online",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 30,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(width: 10),
+                  ],
+                ),
+
+                SizedBox(height: 30),
+                Text("Enter your email to reset your password"),
+                SizedBox(height: 10),
+
+                TextBoxWithIcon(
+                  formKey: _formKey,
+                  textEditingController: _emailController,
+                  placeholder: 'john.doe@example.com',
+                  icon: FluentIcons.accounts,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'An email id is required';
+                    }
+
+                    if (!value.isValidEmail()) {
+                      return 'A valid email id is required';
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    FilledButton(
+                      onPressed: _submitForm,
+                      style: ButtonStyle(
+                        padding: WidgetStateProperty.all(
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                        ),
+                      ),
+                      child: Text(
+                        "Reset Password",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

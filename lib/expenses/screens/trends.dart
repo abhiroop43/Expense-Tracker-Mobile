@@ -15,15 +15,12 @@ class _TrendsScreenState extends State<TrendsScreen> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 35),
-          child: Text(
-            'Statistics',
-            style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.06,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+        Text(
+          'Statistics',
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width * 0.06,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
         TransactionChart(),

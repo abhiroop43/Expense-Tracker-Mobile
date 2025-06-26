@@ -38,7 +38,7 @@ class _WalletsScreenState extends State<WalletsScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          margin: EdgeInsets.only(top: screenHeight * 0.1),
+          margin: EdgeInsets.only(top: screenHeight * 0.02),
           child: Text(
             textAlign: TextAlign.center,
             '\$484.00',

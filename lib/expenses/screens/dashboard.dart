@@ -18,7 +18,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 35, 0, 0),
+          padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,7 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20.0, right: 10),
+          padding: const EdgeInsets.only(right: 10),
           child: IconButton(
             icon: const Icon(FluentIcons.search, size: 20.0),
             style: ButtonStyle(
@@ -110,8 +110,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           Positioned(
-            top: screenHeight * 0.75,
-            left: screenWidth * 0.75,
+            top: screenHeight * 0.74,
+            left: screenWidth * 0.77,
             child: IconButton(
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
