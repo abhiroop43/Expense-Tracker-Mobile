@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
+import 'package:flutter_expense_tracker/expenses/screens/home.dart';
 import 'package:flutter_expense_tracker/start.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           fontFamily: GoogleFonts.poppins().fontFamily ?? 'DefaultFont',
           accentColor: AccentColor.swatch({'normal': ThemeColors.primaryColor}),
         ),
-        home: StartScreen(),
+        home: HomeScreen(),
       ),
     );
   }
