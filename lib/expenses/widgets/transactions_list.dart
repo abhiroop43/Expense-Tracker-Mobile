@@ -13,7 +13,7 @@ class TransactionsList extends StatefulWidget {
 
 class _TransactionsListState extends State<TransactionsList> {
   final ScrollController _scrollController = ScrollController();
-  List<Transaction> _transactions = [];
+  final List<Transaction> _transactions = [];
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
@@ -47,11 +47,27 @@ class _TransactionsListState extends State<TransactionsList> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
-      // controller: _scrollController,
+    return AnimatedList.separated(
       key: _listKey,
       padding: const EdgeInsets.all(8),
       initialItemCount: _transactions.length,
+      separatorBuilder:
+          (BuildContext context, int index, Animation<double> animation) =>
+              SizeTransition(
+                sizeFactor: animation,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Divider(),
+                ),
+              ),
+      removedSeparatorBuilder:
+          (context, index, animation) => SizeTransition(
+            sizeFactor: animation,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Divider(),
+            ),
+          ),
       itemBuilder: (
         BuildContext context,
         int index,
@@ -62,18 +78,10 @@ class _TransactionsListState extends State<TransactionsList> {
             curve: Curves.easeOut,
             parent: animation,
           ).drive((Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)))),
-          child: Column(
-            children: [
-              Container(
-                height: 70,
-                color: ThemeColors.elementBackgroundColor,
-                child: TransactionItem(transaction: _transactions[index]),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Divider(),
-              ),
-            ],
+          child: Container(
+            height: 70,
+            color: ThemeColors.elementBackgroundColor,
+            child: TransactionItem(transaction: _transactions[index]),
           ),
         );
       },
