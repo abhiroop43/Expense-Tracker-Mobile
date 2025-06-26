@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '17'
 
       # Installs flutter and related dependency on this machine
       - name: Setup Flutter
@@ -60,7 +60,7 @@ jobs:
         run: flutter build apk
       
         # Upload apk to Firebase distribution
-      - name: Upload apk to Firebase distribution
+      - name: Create Release
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
