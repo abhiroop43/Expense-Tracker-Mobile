@@ -37,18 +37,19 @@ Follow these steps to get the project up and running on your local machine:
 
 ### 📚 Resources to Get You Started
 
-If you're new to Flutter (or just need a refresher because you forgot everything over the weekend),
+If you're new to Flutter (or just need a refresher because you forgot everything
+over the weekend),
 here are some handy resources:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab) - Because
-  everyone starts somewhere. 🛠️
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook) - Recipes for success (and
-  maybe some debugging tears). 🧑‍🍳
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab) - Because everyone starts somewhere. 🛠️
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook) - Recipes for success (and maybe some debugging tears). 🧑‍🍳
 
 ### 🛠️ Development Help
 
-Need help? Flutter's got your back! Check out the [online documentation](https://docs.flutter.dev/)
-for tutorials, samples, and guidance. It's like having a mentor, but without the awkward small talk.
+Need help? Flutter's got your back!
+Check out the [online documentation](https://docs.flutter.dev/)
+for tutorials, samples, and guidance.
+It's like having a mentor, but without the awkward small talk.
 🤓
 
 ---
@@ -63,41 +64,15 @@ for tutorials, samples, and guidance. It's like having a mentor, but without the
 
 ## 📷 Screenshots
 
-- ### Start Screen
-
-![Start Screen](./screenshots/start.png)
-
-- ### Sign Up
-
-![Sign Up](./screenshots/registration.png)
-
-- ### Login
-
-![Login](./screenshots/login.png)
-
-- ### Home Screen
-
-![Home](./screenshots/home.png)
-
-- ### Add Expense Form
-
-![Add Expense](./screenshots/new_transaction.png)
-
-- ### Statistics Screen
-
-![Statistics](./screenshots/statistics.png)
-
-- ### Wallets List
-
-![Wallets](./screenshots/wallets.png)
-
-- ### Add Wallet Form
-
-![Add or Edit Wallet](./screenshots/add_edit_wallet.png)
-
-- ### User Profile Screen
-
-![Profile](./screenshots/profile.png)
+<img src="./screenshots/start.png" alt="Start Screen" width="200">
+<img src="./screenshots/registration.png" alt="Sign Up" width="200">
+<img src="./screenshots/login.png" alt="Login" width="200">
+<img src="./screenshots/home.png" alt="Home Screen" width="200">
+<img src="./screenshots/new_transaction.png" alt="Add Expense Form" width="200">
+<img src="./screenshots/statistics.png" alt="Statistics" width="200">
+<img src="./screenshots/wallets.png" alt="Wallets List" width="200">
+<img src="./screenshots/add_edit_wallet.png" alt="Add or Edit Wallet" width="200">
+<img src="./screenshots/profile.png" alt="Profile Screen" width="200">
 
 ---
 
@@ -112,8 +87,8 @@ Here's what we plan to add next (because who doesn't love a good to-do list?):
 
 ## 🧑‍💻 Contributing
 
-Got a feature idea or found a bug? Open an issue or submit a pull request. Let's make this app so
-good, even your wallet will thank you. 🙌
+Got a feature idea or found a bug? Open an issue or submit a pull request.
+Let's make this app so good, even your wallet will thank you. 🙌
 
 ---
 

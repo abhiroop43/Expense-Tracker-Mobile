@@ -33,15 +33,12 @@ class _ProfilesScreenState extends State<ProfilesScreen> {
       children: [
         Column(
           children: [
-            Container(
-              margin: const EdgeInsets.only(top: 35),
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  fontSize: titleFontSize,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+            Text(
+              'Profile',
+              style: TextStyle(
+                fontSize: titleFontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
             Container(

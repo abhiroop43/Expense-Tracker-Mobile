@@ -89,7 +89,7 @@ class Wallets {
     wallets.removeWhere((wallet) => wallet.id == id);
   }
 
-  static getWallets() {
+  static List<Wallet> getWallets() {
     return wallets;
   }
 }

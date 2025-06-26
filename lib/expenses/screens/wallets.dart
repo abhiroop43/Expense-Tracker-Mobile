@@ -13,17 +13,36 @@ class WalletsScreen extends StatefulWidget {
 }
 
 class _WalletsScreenState extends State<WalletsScreen> {
-  late List<Wallet> wallets = [];
+  List<Wallet> _wallets = [];
+  late List<Wallet> _loadedWallets = [];
+  GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    wallets = Wallets.getWallets();
+    _loadWallets();
+  }
+
+  void _loadWallets() {
+    _loadedWallets = Wallets.getWallets();
+
+    var future = Future(() {});
+
+    for (int i = 0; i < _loadedWallets.length; i++) {
+      future = future.then((_) {
+        return Future.delayed(Duration(milliseconds: 100), () {
+          _wallets.add(_loadedWallets[i]);
+          _listKey.currentState?.insertItem(_wallets.length - 1);
+        });
+      });
+    }
   }
 
   void _refreshWallets() {
+    _wallets = [];
+    _listKey = GlobalKey();
     setState(() {
-      wallets = Wallets.getWallets();
+      _loadWallets();
     });
   }
 
@@ -38,7 +57,7 @@ class _WalletsScreenState extends State<WalletsScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          margin: EdgeInsets.only(top: screenHeight * 0.1),
+          margin: EdgeInsets.only(top: screenHeight * 0.02),
           child: Text(
             textAlign: TextAlign.center,
             '\$484.00',
@@ -137,37 +156,59 @@ class _WalletsScreenState extends State<WalletsScreen> {
                   ),
                 ),
 
-                wallets.isNotEmpty
+                _loadedWallets.isNotEmpty
                     ? Expanded(
-                      child: ListView.builder(
+                      child: AnimatedList(
+                        key: _listKey,
                         padding: EdgeInsets.only(
                           top: screenHeight * 0.01,
                           left: screenWidth * 0.01,
                           right: screenWidth * 0.01,
                         ),
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        itemCount: wallets.length,
-                        itemBuilder: (context, index) {
-                          var image = base64.decode(wallets[index].walletImage);
-                          return ListTile(
-                            title: Text(wallets[index].walletName),
-                            subtitle: Text('\$${wallets[index].totalBalance}'),
-                            trailing: Icon(FluentIcons.chevron_right),
-                            leading: CircleAvatar(
-                              backgroundImage: MemoryImage(image),
+                        // shrinkWrap: true,
+                        initialItemCount: _wallets.length,
+                        itemBuilder: (context, index, animation) {
+                          var image = base64.decode(
+                            _wallets[index].walletImage,
+                          );
+                          return SlideTransition(
+                            position: CurvedAnimation(
+                              curve: Curves.easeOut,
+                              parent: animation,
+                            ).drive(
+                              (Tween<Offset>(
+                                begin: Offset(1, 0),
+                                end: Offset(0, 0),
+                              )),
                             ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder:
-                                    (context) =>
-                                        AddEditWallet(wallet: wallets[index]),
-                                barrierDismissible: true,
-                              ).then((_) {
-                                _refreshWallets();
-                              });
-                            },
+                            child: ListTile(
+                              title: Text(_wallets[index].walletName),
+
+                              subtitle: Text(
+                                '\$${_wallets[index].totalBalance}',
+                              ),
+
+                              trailing: Icon(FluentIcons.chevron_right),
+
+                              leading: CircleAvatar(
+                                backgroundImage: MemoryImage(image),
+                              ),
+
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+
+                                  builder:
+                                      (context) => AddEditWallet(
+                                        wallet: _wallets[index],
+                                      ),
+
+                                  barrierDismissible: true,
+                                ).then((_) {
+                                  _refreshWallets();
+                                });
+                              },
+                            ),
                           );
                         },
                       ),

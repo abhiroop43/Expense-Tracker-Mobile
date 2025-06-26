@@ -88,7 +88,7 @@ class CarouselCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: screenHeight * 0.03),
+                  SizedBox(height: screenHeight * 0.015),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

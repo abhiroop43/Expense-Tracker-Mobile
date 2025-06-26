@@ -13,6 +13,8 @@ class TransactionsList extends StatefulWidget {
 
 class _TransactionsListState extends State<TransactionsList> {
   final ScrollController _scrollController = ScrollController();
+  final List<Transaction> _transactions = [];
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
   void dispose() {
@@ -21,26 +23,68 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    var transactions = RecentTransactions().searchTransactions(
+  void initState() {
+    super.initState();
+    loadTransactions();
+  }
+
+  void loadTransactions() {
+    var loadedTransactions = RecentTransactions().searchTransactions(
       widget.searchString,
     );
-    return ListView.separated(
-      controller: _scrollController,
+
+    var future = Future(() {});
+
+    for (var i = 0; i < loadedTransactions.length; i++) {
+      future = future.then((_) {
+        return Future.delayed(Duration(milliseconds: 100), () {
+          _transactions.add(loadedTransactions[i]);
+          _listKey.currentState?.insertItem(_transactions.length - 1);
+        });
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedList.separated(
+      key: _listKey,
       padding: const EdgeInsets.all(8),
-      itemCount: transactions.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          height: 70,
-          color: ThemeColors.elementBackgroundColor,
-          child: TransactionItem(transaction: transactions[index]),
+      initialItemCount: _transactions.length,
+      separatorBuilder:
+          (BuildContext context, int index, Animation<double> animation) =>
+              SizeTransition(
+                sizeFactor: animation,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: const Divider(),
+                ),
+              ),
+      removedSeparatorBuilder:
+          (context, index, animation) => SizeTransition(
+            sizeFactor: animation,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Divider(),
+            ),
+          ),
+      itemBuilder: (
+        BuildContext context,
+        int index,
+        Animation<double> animation,
+      ) {
+        return SlideTransition(
+          position: CurvedAnimation(
+            curve: Curves.easeOut,
+            parent: animation,
+          ).drive((Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)))),
+          child: Container(
+            height: 70,
+            color: ThemeColors.elementBackgroundColor,
+            child: TransactionItem(transaction: _transactions[index]),
+          ),
         );
       },
-      separatorBuilder:
-          (BuildContext context, int index) => Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Divider(),
-          ),
     );
   }
 }

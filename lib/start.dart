@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/auth/screens/auth.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
+import 'package:lottie/lottie.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -14,7 +15,7 @@ class StartScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(5, 30, 5, 0),
+              margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -56,7 +57,8 @@ class StartScreen extends StatelessWidget {
                 ),
                 child: Container(
                   margin: EdgeInsets.all(25),
-                  child: Image.asset('assets/images/welcome1.png'),
+                  // child: Image.asset('assets/images/welcome1.png'),
+                  child: Lottie.asset('assets/animations/savings_2.json'),
                 ),
               ),
             ),

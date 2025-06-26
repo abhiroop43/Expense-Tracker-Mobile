@@ -4,6 +4,7 @@ import 'package:flutter_expense_tracker/auth/widgets/text_box_with_icon.dart';
 import 'package:flutter_expense_tracker/common/extensions.dart';
 import 'package:flutter_expense_tracker/expenses/screens/home.dart';
 import 'package:flutter_expense_tracker/start.dart';
+import 'package:lottie/lottie.dart';
 
 class AuthScreen extends StatefulWidget {
   final bool isLogin;
@@ -94,7 +95,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return ScaffoldPage(
       header: Container(
-        margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
+        margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -119,27 +120,34 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
       content: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.fromLTRB(20, 50, 20, 20),
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.isLogin
-                          ? "Hey,\nWelcome Back"
-                          : "Let's\nGet Started",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                  ],
+                Lottie.asset(
+                  widget.isLogin
+                      ? 'assets/animations/login.json'
+                      : 'assets/animations/register.json',
+                  height: 250,
+                  fit: BoxFit.scaleDown,
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text(
+                //       widget.isLogin
+                //           ? "Hey,\nWelcome Back"
+                //           : "Let's\nGet Started",
+                //       style: TextStyle(
+                //         fontSize: 30,
+                //         fontWeight: FontWeight.w900,
+                //       ),
+                //     ),
+                //     SizedBox(width: 10),
+                //   ],
+                // ),
                 SizedBox(height: 30),
                 Text(
                   widget.isLogin
