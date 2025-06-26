@@ -41,13 +41,13 @@ jobs:
         # ^ If you want to use a specific version of flutter
       
       # Verifies if the dart code is formatted well
-      - name: Verify formatting
+      - name: ✅ Verify formatting
         run: dart format --output=none --set-exit-if-changed .
         # --set-exit-if-changed stops execution if the any code is not well formatted
         # --output=none prints files which needs to be formatted
       
       # Checks for Symantic errors. Can be configured using analysis_options.yaml
-      - name: Analyze project source
+      - name: 🔍 Analyze project source
         run: flutter analyze --fatal-warnings
         # optionally use --fatal-warnings to stop execution if any warnings are found
 
@@ -56,11 +56,15 @@ jobs:
       #   run: flutter test
 
       # Create android apk
-      - name: Build apk
-        run: flutter build apk
+      - name: 🛠️ Build APK
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+          ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          run: base64 -d <<< $KEY_JKS > ./android/app/release-key.jks && flutter build apk --release -v
       
         # Upload apk to Firebase distribution
-      - name: Create Release
+      - name: 📦 Create Release
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
