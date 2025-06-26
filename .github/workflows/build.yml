@@ -61,7 +61,7 @@ jobs:
       
         # Upload apk to Firebase distribution
       - name: Upload apk to Firebase distribution
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: release-apk
           path: build/app/outputs/apk/release/app-release.apk
