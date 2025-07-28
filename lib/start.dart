@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/auth/screens/auth.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
+
 import 'package:lottie/lottie.dart';
 
 class StartScreen extends StatelessWidget {

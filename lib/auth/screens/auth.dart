@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/auth/screens/password_reset.dart';
 import 'package:flutter_expense_tracker/auth/widgets/text_box_with_icon.dart';
 import 'package:flutter_expense_tracker/common/extensions.dart';
 import 'package:flutter_expense_tracker/expenses/screens/home.dart';
 import 'package:flutter_expense_tracker/start.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -91,6 +95,26 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
+  signInWithGoogle() async {
+    final GoogleSignInAccount gUser;
+
+    try {
+      gUser = await GoogleSignIn.instance.authenticate();
+    } catch (e) {
+      log(e.toString());
+      return;
+    }
+
+    final GoogleSignInAuthentication gAuth = gUser.authentication;
+
+    final credential = GoogleAuthProvider.credential(idToken: gAuth.idToken);
+
+    final result = await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // save user and proceed
+    log(result.user!.email!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldPage(
@@ -133,21 +157,6 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: 250,
                   fit: BoxFit.scaleDown,
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Text(
-                //       widget.isLogin
-                //           ? "Hey,\nWelcome Back"
-                //           : "Let's\nGet Started",
-                //       style: TextStyle(
-                //         fontSize: 30,
-                //         fontWeight: FontWeight.w900,
-                //       ),
-                //     ),
-                //     SizedBox(width: 10),
-                //   ],
-                // ),
                 SizedBox(height: 30),
                 Text(
                   widget.isLogin
@@ -253,6 +262,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 8.0,
                   children: [
                     FilledButton(
                       onPressed: _submitForm,
@@ -260,11 +270,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         padding: WidgetStateProperty.all(
                           EdgeInsets.symmetric(vertical: 12, horizontal: 0),
                         ),
-                        // shape: WidgetStateProperty.all(
-                        //   RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(18.0),
-                        //   ),
-                        // ),
                       ),
                       child: Text(
                         widget.isLogin ? "Login" : "Sign Up",
@@ -273,6 +278,11 @@ class _AuthScreenState extends State<AuthScreen> {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
+                    ),
+
+                    FilledButton(
+                      onPressed: signInWithGoogle,
+                      child: Text('Sign in with Google'),
                     ),
                   ],
                 ),
