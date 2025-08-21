@@ -113,9 +113,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
     final result = await FirebaseAuth.instance.signInWithCredential(credential);
 
+    // Get the Firebase-issued ID token from the result
+    final String? firebaseIdToken = await result.user!.getIdToken();
+    log('Firebase ID Token: $firebaseIdToken');
     // save user and proceed
 
-    log('id token');
     log('id token${gUser.authentication.idToken!}');
 
     log('access token${result.credential!.accessToken!}');
