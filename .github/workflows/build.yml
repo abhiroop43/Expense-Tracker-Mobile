@@ -36,18 +36,22 @@ jobs:
           # ^ If you want to use a specific version of flutter
       
       # Fetches proj dependencies from pub
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: flutter pub get
         # ^ If you want to use a specific version of flutter
 
-      # 🎨 Create firebase_options.dart from secret
-      - name: Create firebase_options.dart
+      # Create firebase_options.dart from secret
+      - name: 🎨 Create firebase_options.dart
         env:
           FIREBASE_OPTIONS_CONTENT: ${{ secrets.FIREBASE_OPTIONS_DARTS }}
         run: |
           mkdir -p lib
           echo "$FIREBASE_OPTIONS_CONTENT" > lib/firebase_options.dart
           echo "firebase_options.dart created successfully."
+
+      # Re-run pub get to refresh the project's analysis cache
+      - name: 📦 Re-install dependencies
+        run: flutter pub get
       
       # Verifies if the dart code is formatted well
       - name: ✅ Verify formatting
