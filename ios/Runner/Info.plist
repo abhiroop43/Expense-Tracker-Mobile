@@ -53,5 +53,20 @@
 		<string>Access to Camera is required to scan QR codes</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>Access to Microphone is required to record audio</string>
+		<key>GIDClientID</key>
+		<!-- Copied from GoogleService-Info.plist key CLIENT_ID -->
+		<string>972590109607-nb2olk8cfoitknjsg2rf8m713ftn07rp.apps.googleusercontent.com</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+					<string>com.googleusercontent.apps.972590109607-nb2olk8cfoitknjsg2rf8m713ftn07rp</string>
+				</array>
+			</dict>
+		</array>
 	</dict>
 </plist>
