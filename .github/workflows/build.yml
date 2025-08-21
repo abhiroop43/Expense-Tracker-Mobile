@@ -43,7 +43,7 @@ jobs:
       #  Create google-services.json from secret
       - name: 🔐 Create google-services.json
         run: |
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > android/app/google-services.json
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 -di > android/app/google-services.json
       
       # Verifies if the dart code is formatted well
       - name: ✅ Verify formatting
@@ -60,7 +60,7 @@ jobs:
       # - name: Run tests
       #   run: flutter test
 
-      - name: Decode Keystore
+      - name: 🔐 Decode Keystore
         run: |
           echo "${{ secrets.KEY_JKS }}" | base64 --decode > android/app/keystore.jks
 
@@ -72,10 +72,10 @@ jobs:
           echo "storeFile=keystore.jks" >> android/key.properties
 
       # Create android apk
-      - name: Build APK
+      - name: ⚒ Build APK
         run: flutter build apk --release
 
-      - name: Build AppBundle
+      - name: ⚒ Build AppBundle
         run: flutter build appbundle
 
       - name: Upload Artifacts
