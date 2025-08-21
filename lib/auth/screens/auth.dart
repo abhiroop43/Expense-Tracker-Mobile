@@ -26,6 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
   @override
   void dispose() {
@@ -99,7 +100,8 @@ class _AuthScreenState extends State<AuthScreen> {
     final GoogleSignInAccount gUser;
 
     try {
-      gUser = await GoogleSignIn.instance.authenticate();
+      await _googleSignIn.initialize();
+      gUser = await _googleSignIn.authenticate();
     } catch (e) {
       log(e.toString());
       return;
@@ -112,6 +114,12 @@ class _AuthScreenState extends State<AuthScreen> {
     final result = await FirebaseAuth.instance.signInWithCredential(credential);
 
     // save user and proceed
+
+    log('id token');
+    log('id token${gUser.authentication.idToken!}');
+
+    log('access token${result.credential!.accessToken!}');
+
     log(result.user!.email!);
   }
 
