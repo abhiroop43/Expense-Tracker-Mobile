@@ -21,7 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Widget _buildNavItem(IconData icon, int index, double size, double topPad, double bottomPad) {
+  Widget _buildNavItem(
+    IconData icon,
+    int index,
+    double size,
+    double topPad,
+    double bottomPad,
+  ) {
     final bool selected = _currentPageIndex == index;
     final Color color = selected ? Colors.white : Colors.white.withOpacity(0.7);
     return GestureDetector(
@@ -48,10 +54,34 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildNavItem(FluentIcons.home, 0, iconSize, topPadding, bottomPadding),
-              _buildNavItem(FluentIcons.p_b_i_column, 1, iconSize, topPadding, bottomPadding),
-              _buildNavItem(FluentIcons.payment_card, 2, iconSize, topPadding, bottomPadding),
-              _buildNavItem(FluentIcons.contact, 3, iconSize, topPadding, bottomPadding),
+              _buildNavItem(
+                FluentIcons.home,
+                0,
+                iconSize,
+                topPadding,
+                bottomPadding,
+              ),
+              _buildNavItem(
+                FluentIcons.p_b_i_column,
+                1,
+                iconSize,
+                topPadding,
+                bottomPadding,
+              ),
+              _buildNavItem(
+                FluentIcons.payment_card,
+                2,
+                iconSize,
+                topPadding,
+                bottomPadding,
+              ),
+              _buildNavItem(
+                FluentIcons.contact,
+                3,
+                iconSize,
+                topPadding,
+                bottomPadding,
+              ),
             ],
           ),
         ),
