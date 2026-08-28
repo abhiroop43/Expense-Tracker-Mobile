@@ -21,6 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Widget _buildNavItem(IconData icon, int index, double size, double topPad, double bottomPad) {
+    final bool selected = _currentPageIndex == index;
+    final Color color = selected ? Colors.white : Colors.white.withOpacity(0.7);
+    return GestureDetector(
+      onTap: () => _changeIndex(index),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0, topPad, 0, bottomPad),
+        child: Icon(icon, size: size, color: color),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double topPadding = 15.0;
@@ -29,58 +41,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final double iconSize = 25;
     return ScaffoldPage(
       resizeToAvoidBottomInset: false,
-      bottomBar: BottomNavigation(
-        style: BottomNavigationThemeData(
-          inactiveColor: Colors.white,
-          backgroundColor: ThemeColors.elementBackgroundColor,
+      bottomBar: Container(
+        color: ThemeColors.elementBackgroundColor,
+        child: SizedBox(
+          height: 75,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavItem(FluentIcons.home, 0, iconSize, topPadding, bottomPadding),
+              _buildNavItem(FluentIcons.p_b_i_column, 1, iconSize, topPadding, bottomPadding),
+              _buildNavItem(FluentIcons.payment_card, 2, iconSize, topPadding, bottomPadding),
+              _buildNavItem(FluentIcons.contact, 3, iconSize, topPadding, bottomPadding),
+            ],
+          ),
         ),
-        items: [
-          BottomNavigationItem(
-            icon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.home, size: iconSize),
-            ),
-            selectedIcon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.home, size: iconSize),
-            ),
-          ),
-
-          BottomNavigationItem(
-            icon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.p_b_i_column, size: iconSize),
-            ),
-            selectedIcon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.p_b_i_column, size: iconSize),
-            ),
-          ),
-
-          BottomNavigationItem(
-            icon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.payment_card, size: iconSize),
-            ),
-            selectedIcon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.payment_card, size: iconSize),
-            ),
-          ),
-
-          BottomNavigationItem(
-            icon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.contact, size: iconSize),
-            ),
-            selectedIcon: Padding(
-              padding: EdgeInsets.fromLTRB(0, topPadding, 0, bottomPadding),
-              child: Icon(FluentIcons.contact, size: iconSize),
-            ),
-          ),
-        ],
-        index: _currentPageIndex,
-        onChanged: _changeIndex,
       ),
       content:
           <Widget>[
