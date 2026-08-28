@@ -96,7 +96,7 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
-  signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     final GoogleSignInAccount gUser;
 
     try {

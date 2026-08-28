@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
     double bottomPad,
   ) {
     final bool selected = _currentPageIndex == index;
-    final Color color = selected ? Colors.white : Colors.white.withOpacity(0.7);
+    final Color color =
+        selected ? Colors.white : Colors.white.withValues(alpha: 0.7);
     return GestureDetector(
       onTap: () => _changeIndex(index),
       child: Padding(
