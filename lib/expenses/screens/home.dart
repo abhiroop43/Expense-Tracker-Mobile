@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final double iconSize = 25;
     return ScaffoldPage(
       resizeToAvoidBottomInset: false,
-      bottomBar: Container(
+      footer: Container(
         color: ThemeColors.elementBackgroundColor,
         child: SizedBox(
           height: 75,

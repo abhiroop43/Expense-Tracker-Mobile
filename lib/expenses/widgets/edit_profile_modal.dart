@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart' show CircleAvatar;
 
 class EditProfileModal extends StatefulWidget {
   const EditProfileModal({super.key});
