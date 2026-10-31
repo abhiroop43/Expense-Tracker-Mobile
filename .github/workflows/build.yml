@@ -86,13 +86,17 @@ jobs:
             build/app/outputs/flutter-apk/app-release.apk
             build/app/outputs/bundle/release/app-release.aab
 
+      # Release steps run only on push to master, not on PRs, so each
+      # version is released once (after merge) instead of twice.
       - name: Extract version from pubspec.yaml
+        if: github.event_name == 'push'
         id: extract_version
         run: |
           version=$(grep '^version: ' pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
           echo "VERSION=$version" >> $GITHUB_ENV
 
       - name: Check if Tag Exists
+        if: github.event_name == 'push'
         id: check_tag
         run: |
           # Query the remote: actions/checkout does a shallow clone without tags,
@@ -104,13 +108,14 @@ jobs:
           fi
 
       - name: Modify Tag
-        if: env.TAG_EXISTS == 'true'
+        if: github.event_name == 'push' && env.TAG_EXISTS == 'true'
         id: modify_tag
         run: |
           new_version="${{ env.VERSION }}-build-${{ github.run_number }}"
           echo "VERSION=$new_version" >> $GITHUB_ENV
 
       - name: Create Release
+        if: github.event_name == 'push'
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/flutter-apk/app-release.apk,build/app/outputs/bundle/release/app-release.aab"
