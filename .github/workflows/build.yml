@@ -95,7 +95,9 @@ jobs:
       - name: Check if Tag Exists
         id: check_tag
         run: |
-          if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
+          # Query the remote: actions/checkout does a shallow clone without tags,
+          # so a local `git rev-parse` would never see existing tags.
+          if git ls-remote --exit-code --tags origin "refs/tags/v${{ env.VERSION }}" >/dev/null 2>&1; then
             echo "TAG_EXISTS=true" >> $GITHUB_ENV
           else
             echo "TAG_EXISTS=false" >> $GITHUB_ENV
