@@ -1,5 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/profile_buttons.dart';
+import 'package:flutter/material.dart' show CircleAvatar;
 
 class ProfilesScreen extends StatefulWidget {
   const ProfilesScreen({super.key});

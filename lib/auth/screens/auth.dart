@@ -96,13 +96,17 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
 
-  signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     final GoogleSignInAccount gUser;
 
     try {
-      await _googleSignIn.initialize();
+      await _googleSignIn.initialize(
+        serverClientId:
+            '972590109607-9p31nhh2164ik96ldls5ql9n15snsr6t.apps.googleusercontent.com',
+      );
       gUser = await _googleSignIn.authenticate();
     } catch (e) {
+      log("ERROR during authentication");
       log(e.toString());
       return;
     }
@@ -118,11 +122,38 @@ class _AuthScreenState extends State<AuthScreen> {
     log('Firebase ID Token: $firebaseIdToken');
     // save user and proceed
 
-    log('id token${gUser.authentication.idToken!}');
+    log('id token: ${gUser.authentication.idToken!}');
 
-    log('access token${result.credential!.accessToken!}');
+    log('access token: ${result.toString()}');
 
-    log(result.user!.email!);
+    log('User email: ${result.user!.email!}');
+
+    if (!mounted) {
+      return;
+    }
+
+    // await displayInfoBar(
+    //   context,
+    //   builder: (context, close) {
+    //     return InfoBar(
+    //       title: const Text('Success'),
+    //       content: Text('Successfully logged in with Google'),
+    //       action: IconButton(
+    //         icon: const Icon(FluentIcons.clear),
+    //         onPressed: close,
+    //       ),
+    //       severity: InfoBarSeverity.success,
+    //     );
+    //   },
+    // );
+    //
+    // if (!mounted) {
+    //   return;
+    // }
+
+    Navigator.of(
+      context,
+    ).push(FluentPageRoute(builder: (context) => HomeScreen()));
   }
 
   @override

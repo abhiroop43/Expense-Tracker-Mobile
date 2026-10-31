@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/common/curved_separator.dart';
+import 'package:flutter/material.dart' show CircleAvatar;
 
 class CarouselCard extends StatelessWidget {
   final double totalBalance;

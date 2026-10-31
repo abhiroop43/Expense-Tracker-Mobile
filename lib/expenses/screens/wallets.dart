@@ -4,6 +4,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_expense_tracker/common/colors.dart';
 import 'package:flutter_expense_tracker/data/wallets.dart';
 import 'package:flutter_expense_tracker/expenses/widgets/add_edit_wallet.dart';
+import 'package:flutter/material.dart' show CircleAvatar;
 
 class WalletsScreen extends StatefulWidget {
   const WalletsScreen({super.key});
